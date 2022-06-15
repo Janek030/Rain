@@ -1,4 +1,5 @@
 import graphics.Screen;
+import input.Keyboard;
 
 import javax.swing.JFrame;
 //import java.awt.Graphics;
@@ -7,7 +8,6 @@ import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Canvas;
 import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -15,21 +15,29 @@ import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable {
     public static int width = 300;
-    public static int height = width / 16 * 9;
+    public static int height = width / 16 * 9; //168
     public static int scale = 3;
     public static String title = "Rain";
     private Thread thread;
     private JFrame frame;
+    private Keyboard key;
     private boolean running = false;
     private Screen screen;
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //create image
     private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); //convert image to editable array
 
     public Game() {
+        /*
+        1) Stretch screen to fit into Canvas's preferred size
+         */
         Dimension size = new Dimension(width * scale, height * scale);
-        setPreferredSize(size);
+        setPreferredSize(size); // set size of Game::Canvas
+
         screen = new Screen(width, height);
         frame = new JFrame();
+
+        key = new Keyboard();
+        addKeyListener(key);
     }
 
     public synchronized void start() {
@@ -48,18 +56,25 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
-        //System.out.println("Hello World...");
-        long lastTime = System.nanoTime();
-        long timer = System.currentTimeMillis();
+        /*
+        Main loop since Game implements Runnable
+        1) Call update() every 1/60th second (i.e. 60 times / s)
+        2) Call render() every as often as possible
+        3) Update fps and ups counter once per second
+         */
+
+        long lastTime = System.nanoTime(); // used for updates per second
+        long timer = System.currentTimeMillis(); // used for frames per second
         final double ns = 1000000000.0 / 60.0;
         double delta = 0;
         int frames = 0;
         int updates = 0;
+
         while (running) {
             long now = System.nanoTime();
-            delta += (now-lastTime) / ns;
+            delta += (now-lastTime) / ns; // increases delta every iteration (i.e. 5000ps)
             lastTime = now;
-            while (delta >=1){
+            while (delta >=1){ // executed once every 1/60th of a second
                 update();
                 updates++;
                 delta--;
@@ -67,10 +82,9 @@ public class Game extends Canvas implements Runnable {
             render();
             frames++;
 
-            //fps counter
             if (System.currentTimeMillis() - timer > 1000){
-                timer +=1000; //reset timer
-                //System.out.println(updates + " ups, " + frames + " fps");
+                timer +=1000; //set target time 1 second forward
+                System.out.println(updates + " ups, " + frames + " fps");
                 frame.setTitle(title + " | " + updates + " ups, " + frames + " fps");
                 updates = 0;
                 frames = 0;
@@ -78,32 +92,40 @@ public class Game extends Canvas implements Runnable {
         }
         stop();
     }
+    int x = 0, y = 0;
+    public void update() { // "tick"
+        key.update();
 
-    public void update() {
+        if (key.up) y--;
+        if (key.down) y++;
+        if (key.left) x--;
+        if (key.right) x++;
 
     }
 
     public void render() {
+        /*
+        1) call graphics.Screen.render
+        2) Write pixels from graphics.Screen.pixels into Game.pixels ==> image
+        3) Add image to buffer
+        4) show buffer content
+         */
         BufferStrategy bs = getBufferStrategy();
         if (bs == null) {
             createBufferStrategy(3);
             return;
         }
         screen.clear();
-        screen.render();
+        screen.render(x,y);
 
-        //for (int i = 0; i < pixels.length; i++) {
-        //    pixels[i] = screen.pixels[i];
-        //}
-        System.arraycopy(screen.pixels,0,pixels,0, pixels.length);
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = screen.pixels[i];
+        }
+        //System.arraycopy(screen.pixels,0,pixels,0, pixels.length);
 
         Graphics g = bs.getDrawGraphics();
-        {
-            g.setColor(Color.BLACK);
-            g.fillRect(0, 0, getWidth(), getHeight());
-            g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
-        }
         g.dispose();
         bs.show();
 
