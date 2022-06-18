@@ -46,18 +46,22 @@ public class Screen {
         3) Determine which pixel-index corresponds to which tile-index
         4) When end of map/tile[] is reached start at beginning (i.e. repeat map)
          */
+
         for (int y = 0; y < height; y++) {
-            int yy = y + yOffset;
-            if (y < 0 || y >= height) break;
+            int yp = y + yOffset;
+            if (yp < 0 || yp >= height) continue;
             for (int x = 0; x < width; x++) {
-                int xx = x + xOffset;
-                if (x < 0 || x >= width) break;
+                int xp = x + xOffset;
+                if (xp < 0 || xp >= width) continue;
 
                 //int tileIndex = (x / 16) + (y / 16) * MAP_SIZE; // increase tile index every 16px
-                //int tileIndex = (xx >> 4) + (yy >> 4)  * MAP_SIZE; // same as above with bit shift
-                int tileIndex = ((xx >> 4) & MAP_SIZE_MASK ) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE; // same but with repeat when ran out of tile index
-                pixels[x + y * width] = tiles[tileIndex];
-            }
+                //int tileIndex = (xp >> 4) + (yp >> 4)  * MAP_SIZE; // same as above with bit shift
+                //int tileIndex = ((xp >> 4) & MAP_SIZE_MASK) + ((yp >> 4) & MAP_SIZE_MASK) * MAP_SIZE; // same but with repeat when ran out of tile index
+
+                //pixels[x + y * width] = tiles[tileIndex];
+                pixels[xp + yp * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.SIZE];
+             }
         }
+
     }
 }

@@ -70,6 +70,7 @@ public class Game extends Canvas implements Runnable {
         int frames = 0;
         int updates = 0;
 
+        requestFocus();
         while (running) {
             long now = System.nanoTime();
             delta += (now-lastTime) / ns; // increases delta every iteration (i.e. 5000ps)
@@ -84,7 +85,7 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000){
                 timer +=1000; //set target time 1 second forward
-                System.out.println(updates + " ups, " + frames + " fps");
+                //System.out.println(updates + " ups, " + frames + " fps");
                 frame.setTitle(title + " | " + updates + " ups, " + frames + " fps");
                 updates = 0;
                 frames = 0;
