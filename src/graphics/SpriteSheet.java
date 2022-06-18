@@ -5,17 +5,30 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class SpriteSheet {
-    private String path;
+    public String path;
     public final int SIZE;
     public int[] pixels;
 
+    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256);
+
     public SpriteSheet(String path, int size) {
+        /*
+        1. initiate path
+        2. initiate pixels array that holds (partial) SpriteSheet content
+         */
         this.path = path;
         this.SIZE = size;
         pixels = new int[SIZE * SIZE];
+        load();
     }
 
     private void load() {
+        /*
+        1. load image
+        2. convert image pixels into sheet's pixel array
+        3. Issue: What if, image is smaller than declared size????
+         */
+
         try {
             BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
             int w = image.getWidth();
