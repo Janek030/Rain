@@ -39,6 +39,7 @@ public class Level {
         1) xScroll/yScroll  is where player is located
         2) define render region of screen
         3) convert coordinates to tile precision
+        4) call tile's render method
          */
         screen.setOffset(xScroll, yScroll);
         int x0 = xScroll >> 4; // divide by 16; y value for x=0 (left border)
@@ -56,9 +57,9 @@ public class Level {
     private Tile getTile(int x, int y) {
         //if (tiles[x + y * width] == 0) return Tile.grass;
 
-        if (x < 0 || y < 0 || x > width || y >= height) return Tile.voidTile;
+        if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
-        switch (tiles[x + y * width]) {
+        switch (tiles[x + y * width ]) {
             case 0:
                 return Tile.grass;
             case 1:

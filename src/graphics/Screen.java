@@ -69,8 +69,9 @@ public class Screen {
 
     public void renderTile(int xp, int yp, Tile tile) {
         /*
-        x|y = tile pixel to render
-        xp|yp =
+        x|y = tile pixel to render [0-15]
+        xp|yp = tile coordinate (pixel precise) [0-299]
+        xa|ya = screen pixel to render
         xOffset|yOffset = location of player
          */
 
@@ -81,6 +82,7 @@ public class Screen {
             for (int x = 0; x < tile.sprite.SIZE; x++) {
                 int xa = x + xp; //x-absolute
                 if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height)
+                //if (xa < 0 || xa >= width || ya < 0 || ya >= height)
                     break; // only render what you can see on screen
                 if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
                 pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
