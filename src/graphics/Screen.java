@@ -82,14 +82,27 @@ public class Screen {
             for (int x = 0; x < tile.sprite.SIZE; x++) {
                 int xa = x + xp; //x-absolute
                 if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height)
-                //if (xa < 0 || xa >= width || ya < 0 || ya >= height)
                     break; // only render what you can see on screen
                 if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
                 pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
             }
         }
     }
-
+    public void renderPlayer(int xp, int yp, Sprite sprite) {
+        xp -= xOffset; // move map to opposite direction of player's movement
+        yp -= yOffset;
+        for (int y = 0; y < sprite.SIZE; y++) {
+            int ya = y + yp; //y-absolute; (y + yp) == [0-15] + [offset
+            for (int x = 0; x < sprite.SIZE; x++) {
+                int xa = x + xp; //x-absolute
+                if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height)
+                    break; // only render what you can see on screen
+                if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
+                int col = sprite.pixels[x + y * sprite.SIZE];
+                if (col != 0xFFFF00FF) pixels[xa + ya * width] = col;  // make pink transparent
+            }
+        }
+    }
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;

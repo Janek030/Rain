@@ -1,3 +1,4 @@
+import entity.mob.Player;
 import graphics.Screen;
 import input.Keyboard;
 import level.Level;
@@ -7,9 +8,7 @@ import javax.swing.JFrame;
 //import java.awt.Graphics;
 //import java.awt.Canvas;
 //import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Canvas;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
@@ -24,6 +23,7 @@ public class Game extends Canvas implements Runnable {
     private JFrame frame;
     private Keyboard key;
     private Level level;
+    private Player player;
     private boolean running = false;
     private Screen screen;
     private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB); //create image
@@ -40,7 +40,8 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
 
         key = new Keyboard();
-        level = new RandomLevel(10,10);
+        level = new RandomLevel(64, 64);
+        player = new Player(key);
         addKeyListener(key);
     }
 
@@ -77,9 +78,9 @@ public class Game extends Canvas implements Runnable {
         requestFocus();
         while (running) {
             long now = System.nanoTime();
-            delta += (now-lastTime) / ns; // increases delta every iteration (i.e. 5000ps)
+            delta += (now - lastTime) / ns; // increases delta every iteration (i.e. 5000ps)
             lastTime = now;
-            while (delta >=1){ // executed once every 1/60th of a second
+            while (delta >= 1) { // executed once every 1/60th of a second
                 update();
                 updates++;
                 delta--;
@@ -87,8 +88,8 @@ public class Game extends Canvas implements Runnable {
             render();
             frames++;
 
-            if (System.currentTimeMillis() - timer > 1000){
-                timer +=1000; //set target time 1 second forward
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000; //set target time 1 second forward
                 //System.out.println(updates + " ups, " + frames + " fps");
                 frame.setTitle(title + " | " + updates + " ups, " + frames + " fps");
                 updates = 0;
@@ -97,14 +98,16 @@ public class Game extends Canvas implements Runnable {
         }
         stop();
     }
-    int x = 0, y = 0;
+
+    //    int x = 0, y = 0;
     public void update() { // "tick"
         key.update();
+        player.update();
 
-        if (key.up) y--;
-        if (key.down) y++;
-        if (key.left) x--;
-        if (key.right) x++;
+//        if (key.up) y--;
+//        if (key.down) y++;
+//        if (key.left) x--;
+//        if (key.right) x++;
 
     }
 
@@ -121,7 +124,11 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         screen.clear();
-        level.render(x,y,screen);
+        int xScroll = player.x - screen.width/2;
+        int yScroll = player.y - screen.height/2;
+
+        level.render(xScroll, yScroll, screen);
+        player.render(screen);
 //        screen.render(x,y);
 
         for (int i = 0; i < pixels.length; i++) {
@@ -131,7 +138,9 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Verdana", 0, 40));
+        //g.drawString("X: " + player.x + ", Y: " + player.y, 350, 300);
         g.dispose();
         bs.show();
 

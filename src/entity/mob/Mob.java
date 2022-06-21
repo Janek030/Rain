@@ -11,7 +11,24 @@ public abstract class Mob extends Entity {
     protected int dir = 0; // 0==north | 1==east | 2==south | 3==west
     protected boolean moving = false;
 
-    public void move() {
+    public void move(int xa, int ya) {
+        // 0==north | 1==east | 2==south | 3==west
+        if (xa > 0 && ya == 0) dir = 1;
+        if (xa < 0 && ya == 0) dir = 3;
+        if (xa == 0 && ya > 0) dir = 2;
+        if (xa == 0 && ya < 0) dir = 0;
+
+        // 4==SE | 5==NE | 6==SW | 7==NW
+        if (xa > 0 && ya > 0) dir = 4; //SE
+        if (xa > 0 && ya < 0) dir = 5; //NE
+        if (xa < 0 && ya > 0) dir = 6; //SW
+        if (xa < 0 && ya < 0) dir = 7; //NW
+
+
+        if (!collision()) {
+            x += xa;
+            y += ya;
+        }
 
     }
 
@@ -19,7 +36,10 @@ public abstract class Mob extends Entity {
 
     }
 
-    private boolean collision(){
+    public void render() {
+    }
+
+    private boolean collision() {
         return false;
     }
 }

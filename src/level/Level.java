@@ -63,10 +63,16 @@ public class Level {
             case 0:
                 return Tile.grass;
             case 1:
-                return Tile.field;
+                return Tile.grass1;
             case 2:
-                return Tile.water;
+                return Tile.grass2;
             case 3:
+                return Tile.flower;
+            case 4:
+                return Tile.rock;
+            case 5:
+                return Tile.water;
+            case 6:
                 return Tile.stone;
             default:
                 return Tile.voidTile;

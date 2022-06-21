@@ -6,19 +6,39 @@ import java.io.IOException;
 
 public class SpriteSheet {
     public String path;
-    public final int SIZE;
+    //public final int SIZE;
+    public final int XSIZE;
+    public final int YSIZE;
     public int[] pixels;
 
-    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256);
+    public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256, 256);
+    public static SpriteSheet player = new SpriteSheet("/textures/player.png", 512, 256);
 
     public SpriteSheet(String path, int size) {
         /*
+        Constructor for square Spritesheet
         1. initiate path
         2. initiate pixels array that holds (partial) SpriteSheet content
          */
         this.path = path;
-        this.SIZE = size;
-        pixels = new int[SIZE * SIZE];
+        //this.SIZE = size;
+        this.XSIZE = size;
+        this.YSIZE = size;
+        pixels = new int[XSIZE * YSIZE];
+        load();
+    }
+
+    public SpriteSheet(String path, int width, int height) {
+        /*
+        Constructor for rectangular Spritesheet
+        1. initiate path
+        2. initiate pixels array that holds (partial) SpriteSheet content
+         */
+        this.path = path;
+        //this.SIZE = (width * height) / 2;
+        this.XSIZE = width;
+        this.YSIZE = height;
+        pixels = new int[width * height];
         load();
     }
 
