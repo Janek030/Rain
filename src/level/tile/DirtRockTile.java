@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class FlowerTile extends Tile {
-    public FlowerTile(Sprite sprite) {
+public class DirtRockTile extends Tile {
+    public DirtRockTile(Sprite sprite) {
         super(sprite);
     }
 
@@ -13,5 +13,9 @@ public class FlowerTile extends Tile {
         convert into pixel precision
          */
         screen.renderTile(x << 4, y << 4, this, 0);
+    }
+
+    public boolean solid() {
+        return true;
     }
 }

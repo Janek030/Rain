@@ -11,13 +11,18 @@ public class Sprite {
 
     // Map Sprites next:
     public static Sprite grass = new Sprite(16,0,0, SpriteSheet.tiles);
-    public static Sprite flower = new Sprite(16,0,1, SpriteSheet.tiles);
-    public static Sprite rock = new Sprite(16,0,2, SpriteSheet.tiles);
+    public static Sprite grass_flower = new Sprite(16,0,1, SpriteSheet.tiles);
+    public static Sprite grass_rock = new Sprite(16,0,2, SpriteSheet.tiles);
     public static Sprite dirt = new Sprite(16,1,0, SpriteSheet.tiles);
+    public static Sprite dirt_flower = new Sprite(16,1,1, SpriteSheet.tiles);
+    public static Sprite dirt_rock = new Sprite(16,1,2, SpriteSheet.tiles);
     public static Sprite water = new Sprite(16,2,0, SpriteSheet.tiles);
-    public static Sprite wall_H = new Sprite(16,3,0, SpriteSheet.tiles);
-    public static Sprite wall_V = new Sprite(16,4,0, SpriteSheet.tiles);
-    public static Sprite wall_L_LL = new Sprite(16,5,0, SpriteSheet.tiles);
+    public static Sprite wall_H = new Sprite(16,4,0, SpriteSheet.tiles);
+    public static Sprite wall_V = new Sprite(16,3,1, SpriteSheet.tiles);
+    public static Sprite wall_L_LL = new Sprite(16,3,2, SpriteSheet.tiles);
+    public static Sprite wall_L_LR = new Sprite(16,5,2, SpriteSheet.tiles);
+    public static Sprite wall_L_UL = new Sprite(16,3,0, SpriteSheet.tiles);
+    public static Sprite wall_L_UR = new Sprite(16,5,0, SpriteSheet.tiles);
     public static Sprite wall_X = new Sprite(16,6,0, SpriteSheet.tiles);
     public static Sprite wall_T_H = new Sprite(16,7,0, SpriteSheet.tiles);
     public static Sprite wall_T_V = new Sprite(16,8,0, SpriteSheet.tiles);

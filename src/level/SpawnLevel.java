@@ -36,8 +36,9 @@ public class SpawnLevel extends Level {
         //map pixels of source file to tile
         //0x0094FF = water
         //0x00FF21 = grass
-        //0xFFD800 = flower
-        //0x000000 = rock
+        //0xB97A57 = dirt
+        //0xFFD800 = grass flower
+        //0x000000 = grass rock
         //0x111111 = wall vertical
         //0x222222 = wall horizontal
         //0x333333 = wall T east
@@ -47,8 +48,8 @@ public class SpawnLevel extends Level {
         //0x777777 = wall X
         //0xAAAAAA = wall corner upper right
         //0xBBBBBB = wall corner upper left
-        //0xCCCCCC = wall corner lower right
-        //0xDDDDDD = wall corner lower left
+        //0xCCCCCC = wall corner lower left
+        //0xDDDDDD = wall corner lower right
 
         for (int i = 0; i < levelPixels.length; i++) {
             switch (levelPixels[i]) {
@@ -58,14 +59,20 @@ public class SpawnLevel extends Level {
                 case 0xFF00FF21:
                     tiles[i] = Tile.grass;
                     break;
+                case 0xFFFFD800:
+                    tiles[i] = Tile.grass_flower;
+                    break;
+                case 0xFF000000:
+                    tiles[i] = Tile.grass_rock;
+                    break;
                 case 0xFFB97A57:
                     tiles[i] = Tile.dirt;
                     break;
-                case 0xFFFFD800:
-                    tiles[i] = Tile.flower;
+                case 0xFFFF6A00:
+                    tiles[i] = Tile.dirt_flower;
                     break;
-                case 0xFF000000:
-                    tiles[i] = Tile.rock;
+                case 0xFF7F0000:
+                    tiles[i] = Tile.dirt_rock;
                     break;
                 case 0xFF111111:
                     tiles[i] = Tile.wall_V;
@@ -89,16 +96,16 @@ public class SpawnLevel extends Level {
                     tiles[i] = Tile.wall_X;
                     break;
                 case 0xFFAAAAAA:
-                    tiles[i] = Tile.wall_L_UL;
-                    break;
-                case 0xFFBBBBBB:
                     tiles[i] = Tile.wall_L_UR;
                     break;
+                case 0xFFBBBBBB:
+                    tiles[i] = Tile.wall_L_UL;
+                    break;
                 case 0xFFCCCCCC:
-                    tiles[i] = Tile.wall_L_LR;
+                    tiles[i] = Tile.wall_L_LL;
                     break;
                 case 0xFFDDDDDD:
-                    tiles[i] = Tile.wall_L_LL;
+                    tiles[i] = Tile.wall_L_LR;
                     break;
                 default:
                     tiles[i] = Tile.voidTile;

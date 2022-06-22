@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class Wall_L_UL_Tile extends Tile {
-    public Wall_L_UL_Tile(Sprite sprite) {
+public class GrassFlowerTile extends Tile {
+    public GrassFlowerTile(Sprite sprite) {
         super(sprite);
     }
 
@@ -13,9 +13,5 @@ public class Wall_L_UL_Tile extends Tile {
         convert into pixel precision
          */
         screen.renderTile(x << 4, y << 4, this, 0);
-    }
-
-    public boolean solid() {
-        return true;
     }
 }

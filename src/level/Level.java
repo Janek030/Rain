@@ -75,9 +75,9 @@ public class Level {
             case 1:
                 return Tile.dirt;
             case 2:
-                return Tile.flower;
+                return Tile.grass_flower;
             case 3:
-                return Tile.rock;
+                return Tile.grass_rock;
             case 4:
                 return Tile.water;
             case 5:

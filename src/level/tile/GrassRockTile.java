@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class Wall_L_UL_Tile extends Tile {
-    public Wall_L_UL_Tile(Sprite sprite) {
+public class GrassRockTile extends Tile {
+    public GrassRockTile(Sprite sprite) {
         super(sprite);
     }
 

@@ -12,7 +12,7 @@ public class Wall_L_UR_Tile extends Tile {
         /*
         convert into pixel precision
          */
-        screen.renderTile(x << 4, y << 4, this, 3);
+        screen.renderTile(x << 4, y << 4, this, 0);
     }
 
     public boolean solid() {
