@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class WaterTile extends Tile {
-    public WaterTile(Sprite sprite) {
+public class DirtTile extends Tile {
+    public DirtTile(Sprite sprite) {
         super(sprite);
     }
 

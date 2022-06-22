@@ -67,9 +67,11 @@ public class Screen {
 //
 //    }
 
-    public void renderTile(int xp, int yp, Tile tile) {
+    public void renderTile(int xp, int yp, Tile tile, int flip) {
         /*
+        flip = [0=no flip | 1=horizontal flip | 2=vertical flip | 3=both]
         x|y = tile pixel to render [0-15]
+        xs|ys = pixel to render possibly flipped
         xp|yp = tile coordinate (pixel precise) [0-299]
         xa|ya = screen pixel to render
         xOffset|yOffset = location of player
@@ -78,16 +80,22 @@ public class Screen {
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
         for (int y = 0; y < tile.sprite.SIZE; y++) {
-            int ya = y + yp; //y-absolute; (y + yp) == [0-15] + [offset
+            int ya = y + yp; //y-absolute; (y + yp) == [0-15] + [offset]
+            int ys = y;
+            if (flip == 2 || flip == 3) ys = tile.sprite.SIZE - 1 - y;
             for (int x = 0; x < tile.sprite.SIZE; x++) {
                 int xa = x + xp; //x-absolute
+                int xs = x;
+                if (flip == 1 || flip == 3) xs = tile.sprite.SIZE - 1 - x;
+
                 if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height)
                     break; // only render what you can see on screen
                 if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
-                pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+                pixels[xa + ya * width] = tile.sprite.pixels[xs + ys * tile.sprite.SIZE];
             }
         }
     }
+
     public void renderPlayer(int xp, int yp, Sprite sprite) {
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
@@ -103,6 +111,7 @@ public class Screen {
             }
         }
     }
+
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;

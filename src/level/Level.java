@@ -4,25 +4,29 @@ import graphics.Screen;
 import level.tile.Tile;
 
 public class Level {
-    protected int width, height;
-    protected int[] tiles;
+    protected int width, height; //tile precise
+    protected int[] tilesInt;
+    protected Tile[] tiles;
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
-        tiles = new int[width * height];
+        tilesInt = new int[width * height];
+
         generateLevel();
     }
 
     public Level(String path) {
+
         loadLevel(path);
+        generateLevel();
     }
 
     protected void generateLevel() {
 
     }
 
-    private void loadLevel(String path) {
+    protected void loadLevel(String path) {
 
     }
 
@@ -49,7 +53,13 @@ public class Level {
 
         for (int y = y0; y < y1; y++) {
             for (int x = x0; x < x1; x++) {
-                getTile(x, y).render(x, y, screen);
+                //getTile(x, y).render(x, y, screen);
+                //if (((x + y * width) < 0) || ((x + y * width) >= width * height)) {
+                    if (x < 0 || y < 0 || x >= width || y >= height){
+                    Tile.voidTile.render(x, y, screen);
+                    continue;
+                }
+                tiles[x + y * width].render(x, y, screen);
             }
         }
     }
@@ -59,21 +69,19 @@ public class Level {
 
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
 
-        switch (tiles[x + y * width ]) {
+        switch (tilesInt[x + y * width]) {
             case 0:
                 return Tile.grass;
             case 1:
-                return Tile.grass1;
+                return Tile.dirt;
             case 2:
-                return Tile.grass2;
-            case 3:
                 return Tile.flower;
-            case 4:
+            case 3:
                 return Tile.rock;
-            case 5:
+            case 4:
                 return Tile.water;
-            case 6:
-                return Tile.stone;
+            case 5:
+                return Tile.wall_H;
             default:
                 return Tile.voidTile;
         }

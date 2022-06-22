@@ -3,6 +3,7 @@ import graphics.Screen;
 import input.Keyboard;
 import level.Level;
 import level.RandomLevel;
+import level.SpawnLevel;
 
 import javax.swing.JFrame;
 //import java.awt.Graphics;
@@ -40,7 +41,8 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
 
         key = new Keyboard();
-        level = new RandomLevel(64, 64);
+        //level = new RandomLevel(64, 64);
+        level = new SpawnLevel("/levels/spawn.png");
         player = new Player(key);
         addKeyListener(key);
     }

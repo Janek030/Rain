@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class WaterTile extends Tile {
-    public WaterTile(Sprite sprite) {
+public class Wall_X_Tile extends Tile {
+    public Wall_X_Tile(Sprite sprite) {
         super(sprite);
     }
 
@@ -13,5 +13,9 @@ public class WaterTile extends Tile {
         convert into pixel precision
          */
         screen.renderTile(x << 4, y << 4, this, 0);
+    }
+
+    public boolean solid() {
+        return true;
     }
 }

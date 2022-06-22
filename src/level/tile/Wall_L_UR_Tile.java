@@ -3,8 +3,8 @@ package level.tile;
 import graphics.Screen;
 import graphics.Sprite;
 
-public class StoneTile extends Tile {
-    public StoneTile(Sprite sprite) {
+public class Wall_L_UR_Tile extends Tile {
+    public Wall_L_UR_Tile(Sprite sprite) {
         super(sprite);
     }
 
@@ -12,7 +12,7 @@ public class StoneTile extends Tile {
         /*
         convert into pixel precision
          */
-        screen.renderTile(x << 4, y << 4, this);
+        screen.renderTile(x << 4, y << 4, this, 3);
     }
 
     public boolean solid() {

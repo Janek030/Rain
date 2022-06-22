@@ -12,6 +12,6 @@ public class Grass1Tile extends Tile {
         /*
         convert into pixel precision
          */
-        screen.renderTile(x << 4, y << 4, this);
+        screen.renderTile(x << 4, y << 4, this, 0);
     }
 }
