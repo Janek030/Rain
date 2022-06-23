@@ -38,8 +38,29 @@ public abstract class Mob extends Entity {
     }
 
     private boolean collision(int xa, int ya) {
-        if (level.getTile((x + xa) >> 4, (y + ya) >> 4).solid()) return true;
-        return false;
+        /*
+        1) Determine future position pixel
+        2) Widen Collision Coordinate to Collision area
+        3) Convert Collision area corner pixels to tile coordinate
+        4) Check whether target tile is solid
+         */
+        boolean solid = false;
+        int xt, yt;
+        int colAreaRight = 11;
+        int colAreaLeft = 6;
+        int colAreaHeightDown = 20;
+        int colAreaHeightTop = 5;
+
+
+        for (int c = 0; c < 4; c++) {
+
+            xt = ((x + xa) + c % 2 * colAreaRight - colAreaLeft) >> 4;
+            yt = ((y + ya) + c / 2 * colAreaHeightDown - colAreaHeightTop ) >> 4;
+            if (level.getTile(xt, yt).solid()) solid = true;
+        }
+
+
+        return solid;
     }
 
 }
