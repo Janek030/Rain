@@ -1,6 +1,7 @@
 import entity.mob.Player;
 import graphics.Screen;
 import input.Keyboard;
+import input.Mouse;
 import level.Level;
 import level.RandomLevel;
 import level.SpawnLevel;
@@ -40,8 +41,8 @@ public class Game extends Canvas implements Runnable {
 
         screen = new Screen(width, height);
         frame = new JFrame();
-
         key = new Keyboard();
+
 //        level = new RandomLevel(64, 64);
         level = new SpawnLevel("/levels/spawn.png");
 
@@ -49,6 +50,10 @@ public class Game extends Canvas implements Runnable {
         player = new Player(playerSpawn.x(), playerSpawn.y(), key);
         player.init(level);
         addKeyListener(key);
+
+        Mouse mouse = new Mouse();
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
     }
 
     public synchronized void start() {
@@ -146,7 +151,7 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.setColor(Color.WHITE);
         g.setFont(new Font("Verdana", 0, 40));
-        //g.drawString("X: " + player.x + ", Y: " + player.y, 350, 300);
+        g.drawString("X: " + Mouse.getX() + ", Y: " + Mouse.getY()+ ", B: " + Mouse.getButton(), 350, 300);
         g.dispose();
         bs.show();
 
