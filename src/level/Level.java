@@ -67,7 +67,7 @@ public class Level {
         }
     }
 
-    protected Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         //will be overwritten by Level specific implementation
         return Tile.voidTile;
     }

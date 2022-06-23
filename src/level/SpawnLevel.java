@@ -30,7 +30,7 @@ public class SpawnLevel extends Level {
     protected void generateLevel() {
     }
 
-    protected Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
         if (tilesCol[x + y * width] == Tile.col_spawn_water) return Tile.water;
         if (tilesCol[x + y * width] == Tile.col_spawn_grass) return Tile.grass;

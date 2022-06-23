@@ -22,7 +22,7 @@ public class RandomLevel extends Level {
 
     }
 
-    protected Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
         if (tilesInt[x + y * width] == 1) return Tile.water;
         if (tilesInt[x + y * width] == 2) return Tile.grass;

@@ -17,9 +17,9 @@ import java.awt.image.DataBufferInt;
 
 
 public class Game extends Canvas implements Runnable {
-    public static int width = 300;
+    public static int width = 500;
     public static int height = width / 16 * 9; //168
-    public static int scale = 3;
+    public static int scale = 2;
     public static String title = "Rain";
     private Thread thread;
     private JFrame frame;
@@ -47,6 +47,7 @@ public class Game extends Canvas implements Runnable {
 
         TileCoordinate playerSpawn = new TileCoordinate(20, 56);
         player = new Player(playerSpawn.x(), playerSpawn.y(), key);
+        player.init(level);
         addKeyListener(key);
     }
 
