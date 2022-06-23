@@ -28,6 +28,28 @@ public class Tile {
 
     public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 
+    public static final int col_spawn_water = 0xFF0094FF;
+    public static final int col_spawn_grass = 0xFF00FF21;
+    public static final int col_spawn_grass_flower = 0xFFFFD800;
+    public static final int col_spawn_grass_rock = 0xFF000000;
+    public static final int col_spawn_dirt = 0xFFB97A57;
+    public static final int col_spawn_dirt_flower = 0xFFFF6A00;
+    public static final int col_spawn_dirt_rock = 0xFF7F0000;
+    public static final int col_spawn_wall_V = 0xFF111111;
+    public static final int col_spawn_wall_H = 0xFF222222;
+    public static final int col_spawn_wall_T_E = 0xFF333333;
+    public static final int col_spawn_wall_T_S = 0xFF444444;
+    public static final int col_spawn_wall_T_W = 0xFF555555;
+    public static final int col_spawn_wall_T_N = 0xFF666666;
+    public static final int col_spawn_wall_X = 0xFF777777;
+    public static final int col_spawn_wall_L_UR = 0xFFAAAAAA;
+    public static final int col_spawn_wall_L_UL = 0xFFBBBBBB;
+    public static final int col_spawn_wall_L_LL = 0xFFCCCCCC;
+    public static final int col_spawn_wall_L_LR = 0xFFDDDDDD;
+
+
+
+
     public Tile(Sprite sprite) {
         this.sprite = sprite;
     }

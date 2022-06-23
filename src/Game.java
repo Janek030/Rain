@@ -4,6 +4,7 @@ import input.Keyboard;
 import level.Level;
 import level.RandomLevel;
 import level.SpawnLevel;
+import level.TileCoordinate;
 
 import javax.swing.JFrame;
 //import java.awt.Graphics;
@@ -41,9 +42,11 @@ public class Game extends Canvas implements Runnable {
         frame = new JFrame();
 
         key = new Keyboard();
-        //level = new RandomLevel(64, 64);
+//        level = new RandomLevel(64, 64);
         level = new SpawnLevel("/levels/spawn.png");
-        player = new Player(key);
+
+        TileCoordinate playerSpawn = new TileCoordinate(20, 56);
+        player = new Player(playerSpawn.x(), playerSpawn.y(), key);
         addKeyListener(key);
     }
 
@@ -73,7 +76,7 @@ public class Game extends Canvas implements Runnable {
         long lastTime = System.nanoTime(); // used for updates per second
         long timer = System.currentTimeMillis(); // used for frames per second
         final double ns = 1000000000.0 / 60.0;
-        double delta = 0;
+        double delta = 0; // timekeeper for Nano-seconds between runs
         int frames = 0;
         int updates = 0;
 

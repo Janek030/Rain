@@ -6,8 +6,10 @@ import level.tile.Tile;
 public class Level {
     protected int width, height; //tile precise
     protected int[] tilesInt;
-    protected Tile[] tiles;
+    protected int[] tilesCol; // color values
 
+//    public static Level spawn = new SpawnLevel("/levels/spawn.png");
+//    public static Level random = new RandomLevel(40,40);
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
@@ -59,33 +61,14 @@ public class Level {
                     Tile.voidTile.render(x, y, screen);
                     continue;
                 }
-                tiles[x + y * width].render(x, y, screen);
+                getTile(x, y).render(x, y, screen);
+                //tiles[x + y * width].render(x, y, screen);
             }
         }
     }
 
-    private Tile getTile(int x, int y) {
-        //if (tiles[x + y * width] == 0) return Tile.grass;
-
-        if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
-
-        switch (tilesInt[x + y * width]) {
-            case 0:
-                return Tile.grass;
-            case 1:
-                return Tile.dirt;
-            case 2:
-                return Tile.grass_flower;
-            case 3:
-                return Tile.grass_rock;
-            case 4:
-                return Tile.water;
-            case 5:
-                return Tile.wall_H;
-            default:
-                return Tile.voidTile;
-        }
-
-
+    protected Tile getTile(int x, int y) {
+        //will be overwritten by Level specific implementation
+        return Tile.voidTile;
     }
 }

@@ -1,5 +1,7 @@
 package level;
 
+import level.tile.Tile;
+
 import java.util.Random;
 
 public class RandomLevel extends Level {
@@ -18,5 +20,17 @@ public class RandomLevel extends Level {
             }
         }
 
+    }
+
+    protected Tile getTile(int x, int y) {
+        if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile;
+        if (tilesInt[x + y * width] == 1) return Tile.water;
+        if (tilesInt[x + y * width] == 2) return Tile.grass;
+        if (tilesInt[x + y * width] == 3) return Tile.grass_flower;
+        if (tilesInt[x + y * width] == 4) return Tile.grass_rock;
+        if (tilesInt[x + y * width] == 5) return Tile.dirt;
+        if (tilesInt[x + y * width] == 6) return Tile.dirt_flower;
+        if (tilesInt[x + y * width] == 7) return Tile.dirt_rock;
+        return Tile.voidTile;
     }
 }
