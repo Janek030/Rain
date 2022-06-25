@@ -2,15 +2,17 @@ package rain.entity.projectile;
 
 import rain.graphics.Screen;
 import rain.graphics.Sprite;
-import rain.level.tile.Tile;
+
 
 public class WizardProjectile extends Projectile {
-//TODO: Add collision
+
+    public static final int FIRE_RATE = 15;
+    //TODO: Add collision
     public WizardProjectile(int x, int y, double dir) {
         super(x, y, dir);
         range = random.nextInt(100) + 20;
         damage = 20;
-        rateOfFire = 15;
+
         speed = 3;
 
         sprite = Sprite.projectile_wizard;
@@ -32,7 +34,7 @@ public class WizardProjectile extends Projectile {
     }
 
     private double distance() {
-        return Math.sqrt(Math.pow(xOrigin - x, 2) + Math.pow(yOrigin - y, 2)); //phytagoran theorem
+        return Math.sqrt(((xOrigin - x) * (xOrigin - x)) + ((yOrigin - y)*(yOrigin - y))); //phytagoran theorem
     }
 
     public void render(Screen screen) {

@@ -32,11 +32,8 @@ public abstract class Mob extends Entity {
         if (xa < 0 && ya > 0) dir = 6; //SW
         if (xa < 0 && ya < 0) dir = 7; //NW
 
-
         if (!collision(xa, 0)) x += xa;
         if (!collision(0, ya)) y += ya;
-
-
     }
 
     public void update() {
