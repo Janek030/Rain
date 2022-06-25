@@ -60,16 +60,12 @@ public abstract class Mob extends Entity {
         int colAreaLeft = 6;
         int colAreaHeightDown = 20;
         int colAreaHeightTop = 5;
-
-
         for (int c = 0; c < 4; c++) {
 
             xt = ((x + xa) + c % 2 * colAreaRight - colAreaLeft) >> 4;
             yt = ((y + ya) + c / 2 * colAreaHeightDown - colAreaHeightTop) >> 4;
             if (level.getTile(xt, yt).solid()) solid = true;
         }
-
-
         return solid;
     }
 
