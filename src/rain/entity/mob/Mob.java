@@ -1,6 +1,7 @@
 package rain.entity.mob;
 
 import rain.entity.Entity;
+import rain.entity.particle.Particle;
 import rain.entity.projectile.Projectile;
 import rain.entity.projectile.WizardProjectile;
 import rain.graphics.Sprite;
@@ -18,7 +19,6 @@ public abstract class Mob extends Entity {
     protected boolean walking = false;
 
 
-
     public void move(int xa, int ya) {
         // 0==north | 1==east | 2==south | 3==west
         if (xa > 0 && ya == 0) dir = 1;
@@ -32,8 +32,8 @@ public abstract class Mob extends Entity {
         if (xa < 0 && ya > 0) dir = 6; //SW
         if (xa < 0 && ya < 0) dir = 7; //NW
 
-        if (!collision(xa, 0)) x += xa;
         if (!collision(0, ya)) y += ya;
+        if (!collision(xa, 0)) x += xa;
     }
 
     public void update() {
@@ -41,7 +41,7 @@ public abstract class Mob extends Entity {
 
     protected void shoot(int x, int y, double dir) {
         Projectile p = new WizardProjectile(x, y, dir);
-        level.addProjectile(p);
+        level.add(p);
     }
 
     public void render() {

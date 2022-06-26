@@ -1,6 +1,7 @@
 package rain.level;
 
 import rain.entity.Entity;
+import rain.entity.particle.Particle;
 import rain.entity.projectile.Projectile;
 import rain.graphics.Screen;
 import rain.level.tile.Tile;
@@ -15,6 +16,7 @@ public class Level {
 
     private List<Entity> entities = new ArrayList<Entity>();
     private List<Projectile> projectiles = new ArrayList<Projectile>();
+    private List<Particle> particles = new ArrayList<Particle>();
 
     public Level(int width, int height) {
         this.width = width;
@@ -29,6 +31,7 @@ public class Level {
 
         loadLevel(path);
         generateLevel();
+
     }
 
     protected void generateLevel() {
@@ -47,8 +50,26 @@ public class Level {
         for (int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).update();
         }
+
+        for (int i = 0; i < particles.size(); i++) {
+            particles.get(i).update();
+        }
+        remove();
     }
 
+    private void remove(){
+        for (int i = 0; i < entities.size(); i++) {
+            if (entities.get(i).isRemoved()) entities.remove(i);
+        }
+
+        for (int i = 0; i < projectiles.size(); i++) {
+            if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+        }
+
+        for (int i = 0; i < particles.size(); i++) {
+            if (particles.get(i).isRemoved()) particles.remove(i);
+        }
+    }
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
@@ -56,7 +77,7 @@ public class Level {
     private void time() {
     }
 
-    public boolean tileCollision(double x, double y, double xa, double ya, int size) {
+    public boolean tileCollision(double x, double y, double xa, double ya) {
         /*
         x|x current position
         1) Determine future position pixel
@@ -64,15 +85,15 @@ public class Level {
         3) Convert Collision area corner pixels to tile coordinate
         4) Check whether target tile is solid
          */
-        boolean solid = false;
+        boolean collision = false;
         int xt, yt;
 
         for (int c = 0; c < 4; c++) {
-            xt = (((int) x + (int) xa) + c % 2 * size + 1) >> 4;
-            yt = (((int) y + (int) ya) + c / 2 * size + 4) >> 4;
-            if (getTile((int) xt, (int) yt).solid()) solid = true;
+            xt = (((int) x + (int) xa) + c % 2 * 9) >> 4;
+            yt = (((int) y + (int) ya) + c / 2 * 7 + 4) >> 4;
+            if (getTile((int) xt, (int) yt).solid()) collision = true;
         }
-        return solid;
+        return collision;
     }
 
     public void render(int xScroll, int yScroll, Screen screen) {
@@ -107,16 +128,22 @@ public class Level {
         for (int i = 0; i < projectiles.size(); i++) {
             projectiles.get(i).render(screen);
         }
+        for (int i = 0; i < particles.size(); i++) {
+            particles.get(i).render(screen);
+        }
     }
 
     public void add(Entity e) {
-        entities.add(e);
+        e.init(this);
+        if (e instanceof Particle) {
+            particles.add((Particle) e);
+        } else if (e instanceof Projectile) {
+            projectiles.add((Projectile) e);
+        } else {
+            entities.add(e);
+        }
     }
 
-    public void addProjectile(Projectile p) {
-        p.init(this);
-        projectiles.add(p);
-    }
 
     public Tile getTile(int x, int y) {
         //will be overwritten by Level specific implementation

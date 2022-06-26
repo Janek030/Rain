@@ -42,31 +42,21 @@ public class Screen {
         //Arrays.fill(pixels, 0);
     }
 
-//    public void render(int xOffset, int yOffset) {
-//        /*
-//        1) Write content starting at (xx|yy) ~ (xx = x + xOffset)
-//        2) Do not write outside of screen
-//        3) Determine which pixel-index corresponds to which tile-index
-//        4) When end of map/tile[] is reached start at beginning (i.e. repeat map)
-//         */
-//
-//        for (int y = 0; y < height; y++) {
-//            int yp = y + yOffset;
-//            if (yp < 0 || yp >= height) continue;
-//            for (int x = 0; x < width; x++) {
-//                int xp = x + xOffset;
-//                if (xp < 0 || xp >= width) continue;
-//
-//                //int tileIndex = (x / 16) + (y / 16) * MAP_SIZE; // increase tile index every 16px
-//                //int tileIndex = (xp >> 4) + (yp >> 4)  * MAP_SIZE; // same as above with bit shift
-//                //int tileIndex = ((xp >> 4) & MAP_SIZE_MASK) + ((yp >> 4) & MAP_SIZE_MASK) * MAP_SIZE; // same but with repeat when ran out of tile index
-//
-//                //pixels[x + y * width] = tiles[tileIndex];
-//                pixels[xp + yp * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.SIZE];
-//            }
-//        }
-//
-//    }
+    public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
+        if (fixed) {   //fixed on map
+            xp -= xOffset; // move map to opposite direction of player's movement
+            yp -= yOffset;
+        }
+        for (int y = 0; y < sprite.getHeight(); y++) {
+            int ya = y + yp;
+            for (int x = 0; x < sprite.getWidth(); x++) {
+                int xa = x + xp;
+                if (xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+                pixels[xa + ya * width] = sprite.pixels[x + y * sprite.getWidth()];
+            }
+
+        }
+    }
 
     public void renderTile(int xp, int yp, Tile tile, int flip) {
         /*
@@ -97,11 +87,12 @@ public class Screen {
         }
     }
 
-    public void renderProjectTile(int xp, int yp, Projectile p, int flip) {
+    public void renderProjectile(int xp, int yp, Projectile p, int flip) {
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
         for (int y = 0; y < p.getSpriteSize(); y++) {
-            int ya = y + yp; //y-absolute; (y + yp) == [0-15] + [offset]
+            int ya = y + yp; //y-a
+            // absolute; (y + yp) == [0-15] + [offset]
             int ys = y;
             if (flip == 2 || flip == 3) ys = p.getSpriteSize() - 1 - y;
             for (int x = 0; x < p.getSpriteSize(); x++) {

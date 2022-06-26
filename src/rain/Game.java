@@ -2,6 +2,7 @@ package rain;
 
 import rain.entity.mob.Player;
 import rain.graphics.Screen;
+import rain.graphics.Sprite;
 import rain.input.Keyboard;
 import rain.input.Mouse;
 import rain.level.Level;
@@ -16,6 +17,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 
 public class Game extends Canvas implements Runnable {
@@ -142,7 +144,6 @@ public class Game extends Canvas implements Runnable {
 
         level.render(xScroll, yScroll, screen);
         player.render(screen);
-//        screen.render(x,y);
 
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
