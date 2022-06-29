@@ -18,4 +18,5 @@ public class DirtRockTile extends Tile {
     public boolean solid() {
         return true;
     }
+
 }

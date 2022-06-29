@@ -70,7 +70,7 @@ public class Sprite {
     public static Sprite player_SW_3 = new Sprite(32, 3, 1, SpriteSheet.player);
 
     // Projectile Sprites next:
-    public static Sprite projectile_wizard = new Sprite(16, 1, 0, SpriteSheet.projectile_wizard);
+    public static Sprite projectile_wizard = new Sprite(16, 0, 0, SpriteSheet.projectile_wizard);
 
     // Particle Sprites next:
     public static Sprite particle_normal = new Sprite(2, 0xFFAAAAAA);

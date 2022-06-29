@@ -57,7 +57,7 @@ public class Level {
         remove();
     }
 
-    private void remove(){
+    private void remove() {
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).isRemoved()) entities.remove(i);
         }
@@ -70,6 +70,7 @@ public class Level {
             if (particles.get(i).isRemoved()) particles.remove(i);
         }
     }
+
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
@@ -77,21 +78,38 @@ public class Level {
     private void time() {
     }
 
-    public boolean tileCollision(double x, double y, double xa, double ya) {
-        /*
-        x|x current position
-        1) Determine future position pixel
-        2) Widen Collision Coordinate to Collision area
-        3) Convert Collision area corner pixels to tile coordinate
-        4) Check whether target tile is solid
-         */
+//    public boolean tileCollision(double x, double y, double xa, double ya) {
+//        /*
+//        x|x current position
+//        1) Determine future position pixel
+//        2) Widen Collision Coordinate to Collision area
+//        3) Convert Collision area corner pixels to tile coordinate
+//        4) Check whether target tile is solid
+//         */
+//        boolean collision = false;
+//        int xt, yt;
+//
+//        for (int c = 0; c < 4; c++) {
+//            xt = (((int) x + (int) xa) + c % 2 * 9) >> 4;
+//            yt = (((int) y + (int) ya) + c / 2 * 7 + 4) >> 4;
+//            if (getTile((int) xt, (int) yt).solid()) collision = true;
+//        }
+//        return collision;
+//    }
+
+    public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) {
+
         boolean collision = false;
         int xt, yt;
 
         for (int c = 0; c < 4; c++) {
-            xt = (((int) x + (int) xa) + c % 2 * 9) >> 4;
-            yt = (((int) y + (int) ya) + c / 2 * 7 + 4) >> 4;
-            if (getTile((int) xt, (int) yt).solid()) collision = true;
+            xt = (x + (c % 2) * size + xOffset) >> 4; // remainder  0, 1, 0, 1
+            yt = (y + (c / 2) * size + yOffset) >> 4; // quotient   0, 0, 1, 1
+            // [x + xOffset,        y + yOffset]
+            // [x + size + xOffset, y + yOffset]
+            // [x + xOffset,        y + size + yOffset]
+            // [x + size + xOffset, y + size + yOffset]
+            if (getTile(xt, yt).solid()) collision = true;
         }
         return collision;
     }
