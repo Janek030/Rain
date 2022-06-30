@@ -3,8 +3,10 @@ package rain.entity.mob;
 import rain.Game;
 import rain.entity.projectile.Projectile;
 import rain.entity.projectile.WizardProjectile;
+import rain.graphics.AnimatedSprite;
 import rain.graphics.Screen;
 import rain.graphics.Sprite;
+import rain.graphics.SpriteSheet;
 import rain.input.Keyboard;
 import rain.input.Mouse;
 
@@ -16,6 +18,8 @@ public class Player extends Mob {
     private int anim;
     private boolean walking = false;
 
+    //TODO: testing - can be removed
+    private AnimatedSprite test = new AnimatedSprite(SpriteSheet.player_unarmed_S,4,1,4);
     private int fireRate = 0;
 
 
@@ -33,6 +37,7 @@ public class Player extends Mob {
     }
 
     public void update() {
+        test.update();
         if (fireRate > 0) fireRate--;
         int xa = 0, ya = 0;
         if (anim < 7500) anim++;
@@ -100,6 +105,7 @@ public class Player extends Mob {
                 else sprite = Sprite.player_S_3;
             }
         }
+
         if (dir == 3) {
             sprite = Sprite.player_W;
             if (walking) {
@@ -142,7 +148,9 @@ public class Player extends Mob {
                 else sprite = Sprite.player_NW_3;
             }
         }
-
+        //TODO: testing - can be removed
+        sprite = test.getSprite();
+        
         int xx = x - sprite.SIZE / 2;
         int yy = y - sprite.SIZE / 2;
         screen.renderPlayer(xx, yy, sprite);

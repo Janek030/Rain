@@ -6,7 +6,7 @@ public class Sprite {
     private int x, y;
     private int width, height;
     public int[] pixels;
-    private SpriteSheet sheet;
+    protected SpriteSheet sheet;
 
     public static Sprite voidSprite = new Sprite(16, 0x1B87E0);
 
@@ -75,6 +75,13 @@ public class Sprite {
     // Particle Sprites next:
     public static Sprite particle_normal = new Sprite(2, 0xFFAAAAAA);
 
+    protected Sprite(SpriteSheet sheet, int width, int height) {
+        //only used by animated Sprite
+        this.sheet = sheet;
+        this.width = width;
+        this.height = height;
+        this.SIZE = width == height ? width : -1;
+    }
     public Sprite(int size, int x, int y, SpriteSheet sheet) {
         /*
         #size == standard size of each sprite in SpriteSheet
@@ -95,7 +102,7 @@ public class Sprite {
     }
 
     public Sprite(int width, int height, int colour) {
-        this.SIZE = -1;
+        this.SIZE = width == height ? width : -1;
         this.width = width;
         this.height = height;
         pixels = new int[width * height];
@@ -108,6 +115,13 @@ public class Sprite {
         this.height = size;
         pixels = new int[SIZE * SIZE];
         setColour(colour);
+    }
+
+    public Sprite(int[] pixels, int width, int height) {
+        this.SIZE = width == height ? width : -1;
+        this.width = width;
+        this.height = height;
+        this.pixels = pixels;
     }
 
     private void setColour(int colour) {
@@ -130,7 +144,7 @@ public class Sprite {
          */
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.XSIZE];
+                pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.WIDTH];
             }
         }
     }

@@ -3,6 +3,7 @@ package rain;
 import rain.entity.mob.Player;
 import rain.graphics.Screen;
 import rain.graphics.Sprite;
+import rain.graphics.SpriteSheet;
 import rain.input.Keyboard;
 import rain.input.Mouse;
 import rain.level.Level;
@@ -144,7 +145,7 @@ public class Game extends Canvas implements Runnable {
 
         level.render(xScroll, yScroll, screen);
         player.render(screen);
-
+        //screen.renderSheet(40,40, SpriteSheet.player_jump,false);
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
         }
