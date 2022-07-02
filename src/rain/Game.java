@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private JFrame frame;
     private Keyboard key;
+    private Mouse mouse;
     private Level level;
     private Player player;
     private boolean running = false;
@@ -46,16 +47,17 @@ public class Game extends Canvas implements Runnable {
         screen = new Screen(width, height);
         frame = new JFrame();
         key = new Keyboard();
+        mouse = new Mouse();
 
 //        rain.level = new RandomLevel(64, 64);
         level = new SpawnLevel("/levels/spawn.png");
 
         TileCoordinate playerSpawn = new TileCoordinate(20, 56);
-        player = new Player(playerSpawn.x(), playerSpawn.y(), key);
+        player = new Player(playerSpawn.x(), playerSpawn.y(), key, mouse);
         player.init(level);
         addKeyListener(key);
 
-        Mouse mouse = new Mouse();
+
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
     }

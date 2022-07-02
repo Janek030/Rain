@@ -14,32 +14,69 @@ public abstract class Mob extends Entity {
     Mob is a generic rain.entity with a Sprite and ability to move
      */
     protected Sprite sprite;
-    protected int dir = 0; // 0==north | 1==east | 2==south | 3==west
-    protected boolean moving = false;
+    protected int dir = 0; // 0-7
+    protected int shoot_dir = 0; // 0-7
+    //protected boolean moving = false;
     protected boolean walking = false;
-
+    protected boolean shooting = false;
+    private boolean jumping = false;
 
     public void move(int xa, int ya) {
-        // 0==north | 1==east | 2==south | 3==west
-        if (xa > 0 && ya == 0) dir = 1;
-        if (xa < 0 && ya == 0) dir = 3;
-        if (xa == 0 && ya > 0) dir = 2;
-        if (xa == 0 && ya < 0) dir = 0;
+        if (!collision(0, ya)) y += ya;
+        if (!collision(xa, 0)) x += xa;
 
-        // 4==SE | 5==NE | 6==SW | 7==NW
+        if (xa > 0 && ya == 0) dir = 1; //E
+        if (xa < 0 && ya == 0) dir = 3; //W
+        if (xa == 0 && ya > 0) dir = 2; //S
+        if (xa == 0 && ya < 0) dir = 0; //N
+
         if (xa > 0 && ya > 0) dir = 4; //SE
         if (xa > 0 && ya < 0) dir = 5; //NE
         if (xa < 0 && ya > 0) dir = 6; //SW
         if (xa < 0 && ya < 0) dir = 7; //NW
-
-        if (!collision(0, ya)) y += ya;
-        if (!collision(xa, 0)) x += xa;
     }
 
     public void update() {
     }
 
     protected void shoot(int x, int y, double dir) {
+
+
+        int range = (int) (dir / (Math.PI / 8));
+
+        if (-1 < range && range <= 1) {
+            shoot_dir = 1; //E
+            x += 8;
+            y -= 12;
+        } else if (1 < range && range <= 3) {
+            shoot_dir = 4; //SE
+            x += 4;
+        } else if (3 < range && range <= 5) {
+            shoot_dir = 2; //S
+            x -= 7;
+            y -= 2;
+        } else if (5 < range && range <= 7) {
+            shoot_dir = 6; //SW
+            x -= 18;
+            //y -= 12;
+        } else if (7 < range || range <= -7) {
+            shoot_dir = 3; //W
+            x -= 22;
+            y -= 12;
+        } else if (-7 < range && range <= -5) {
+            shoot_dir = 7; //NW
+            x -= 18;
+            y -= 15;
+        } else if (-5 < range && range <= -3) {
+            shoot_dir = 0; //N
+            x -= 7;
+            y -= 25;
+        } else if (-4 < range && range <= -1) {
+            shoot_dir = 5; //NE
+            x += 4;
+            y -= 15;
+        }
+
         Projectile p = new WizardProjectile(x, y, dir);
         level.add(p);
     }
@@ -61,7 +98,6 @@ public abstract class Mob extends Entity {
         int colAreaHeightDown = 20;
         int colAreaHeightTop = 5;
         for (int c = 0; c < 4; c++) {
-
             xt = ((x + xa) + c % 2 * colAreaRight - colAreaLeft) >> 4;
             yt = ((y + ya) + c / 2 * colAreaHeightDown - colAreaHeightTop) >> 4;
             if (level.getTile(xt, yt).solid()) solid = true;

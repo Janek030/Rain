@@ -8,7 +8,7 @@ import rain.graphics.Sprite;
 
 public class WizardProjectile extends Projectile {
 
-    public static final int FIRE_RATE = 4;
+    public static final int FIRE_RATE = 10;
     public static final int PROJECTILE_XOFFSET = 4;
     public static final int PROJECTILE_YOFFSET = 4;
     public static final int PROJECTILE_SIZE = 8;

@@ -148,4 +148,8 @@ public class Sprite {
             }
         }
     }
+
+    protected int getFrame() {
+        return 1;
+    }
 }
