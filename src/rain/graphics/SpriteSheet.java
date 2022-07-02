@@ -16,6 +16,7 @@ public class SpriteSheet {
     public static SpriteSheet projectile_wizard = new SpriteSheet("/textures/projectiles/wizard.png", 48, 48);
 
     public static SpriteSheet player = new SpriteSheet("/textures/player.png", 512, 256);
+    public static SpriteSheet mob = new SpriteSheet("/textures/mob.png", 512, 256);
     public static SpriteSheet player_unarmed = new SpriteSheet(player, 0, 0, 4, 8, 32);
 
     public static SpriteSheet player_unarmed_S = new SpriteSheet(player_unarmed, 0, 0, 4, 1, 32);

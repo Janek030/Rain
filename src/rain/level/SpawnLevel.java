@@ -1,5 +1,6 @@
 package rain.level;
 
+import rain.entity.mob.Dummy;
 import rain.level.tile.Tile;
 
 import javax.imageio.ImageIO;
@@ -25,6 +26,8 @@ public class SpawnLevel extends Level {
             e.printStackTrace();
             System.out.println("Exception! Could not load rain.level file.");
         }
+//TODO: For test only
+        add(new Dummy(20,55));
     }
 
     protected void generateLevel() {

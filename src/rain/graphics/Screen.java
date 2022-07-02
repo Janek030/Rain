@@ -126,7 +126,7 @@ public class Screen {
         }
     }
 
-    public void renderPlayer(int xp, int yp, Sprite sprite) {
+    public void renderMob(int xp, int yp, Sprite sprite) {
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
         for (int y = 0; y < sprite.SIZE; y++) {

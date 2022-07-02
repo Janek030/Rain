@@ -19,9 +19,6 @@ public class Player extends Mob {
 //    private int anim;
 
 
-
-
-    //TODO: testing - can be removed
     private AnimatedSprite player_unarmed_S = new AnimatedSprite(SpriteSheet.player_unarmed_S, 4, 1, 4,10);
     private AnimatedSprite player_unarmed_SW = new AnimatedSprite(SpriteSheet.player_unarmed_SW, 4, 1, 4,10);
     private AnimatedSprite player_unarmed_W = new AnimatedSprite(SpriteSheet.player_unarmed_W, 4, 1, 4,10);
@@ -44,7 +41,7 @@ public class Player extends Mob {
 
     public Player(Keyboard input) {
         this.input = input;
-        sprite = Sprite.player_S;
+        sprite = player_unarmed_S;
 //        animSprite = player_unarmed_S;
     }
 
@@ -53,7 +50,7 @@ public class Player extends Mob {
         this.y = y;
         this.input = input;
         this.mouse = mouse;
-        sprite = Sprite.player_S;
+        sprite = player_unarmed_S;
         fireRate = WizardProjectile.FIRE_RATE;
     }
 
@@ -139,7 +136,7 @@ public class Player extends Mob {
 
         int xx = x - sprite.SIZE / 2;
         int yy = y - sprite.SIZE / 2;
-        screen.renderPlayer(xx, yy, sprite);
+        screen.renderMob(xx, yy, sprite);
 
     }
 }

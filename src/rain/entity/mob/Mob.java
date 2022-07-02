@@ -4,6 +4,7 @@ import rain.entity.Entity;
 import rain.entity.particle.Particle;
 import rain.entity.projectile.Projectile;
 import rain.entity.projectile.WizardProjectile;
+import rain.graphics.Screen;
 import rain.graphics.Sprite;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public abstract class Mob extends Entity {
     protected Sprite sprite;
     protected int dir = 0; // 0-7
     protected int shoot_dir = 0; // 0-7
-    //protected boolean moving = false;
+    protected boolean moving = false;
     protected boolean walking = false;
     protected boolean shooting = false;
     private boolean jumping = false;
@@ -36,14 +37,10 @@ public abstract class Mob extends Entity {
         if (xa < 0 && ya < 0) dir = 7; //NW
     }
 
-    public void update() {
-    }
-
+    public abstract void update();
+    public abstract void render(Screen screen);
     protected void shoot(int x, int y, double dir) {
-
-
         int range = (int) (dir / (Math.PI / 8));
-
         if (-1 < range && range <= 1) {
             shoot_dir = 1; //E
             x += 8;
@@ -76,13 +73,11 @@ public abstract class Mob extends Entity {
             x += 4;
             y -= 15;
         }
-
         Projectile p = new WizardProjectile(x, y, dir);
         level.add(p);
     }
 
-    public void render() {
-    }
+
 
     private boolean collision(int xa, int ya) {
         /*
@@ -104,6 +99,4 @@ public abstract class Mob extends Entity {
         }
         return solid;
     }
-
-
 }
