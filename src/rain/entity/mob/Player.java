@@ -60,8 +60,6 @@ public class Player extends Mob {
 
         if (fireRate > 0) fireRate--;
         int xa = 0, ya = 0;
-//        if (anim < 7500) anim++;
-//        else anim = 0;
         if (input.up) ya--;
         if (input.down) ya++;
         if (input.left) xa--;
@@ -113,24 +111,24 @@ public class Player extends Mob {
         // 0==north | 1==east | 2==south | 3==west
         if (walking) {
             //System.out.println("Walking " + dir);
-            if (dir == 0) animSprite = player_unarmed_N;
-            if (dir == 1) animSprite = player_unarmed_E;
-            if (dir == 2) animSprite = player_unarmed_S;
-            if (dir == 3) animSprite = player_unarmed_W;
-            if (dir == 4) animSprite = player_unarmed_SE;
-            if (dir == 5) animSprite = player_unarmed_NE;
-            if (dir == 6) animSprite = player_unarmed_SW;
-            if (dir == 7) animSprite = player_unarmed_NW;
+            if (dir == Direction.N) animSprite = player_unarmed_N;
+            if (dir == Direction.E) animSprite = player_unarmed_E;
+            if (dir == Direction.S) animSprite = player_unarmed_S;
+            if (dir == Direction.W) animSprite = player_unarmed_W;
+            if (dir == Direction.SE) animSprite = player_unarmed_SE;
+            if (dir == Direction.NE) animSprite = player_unarmed_NE;
+            if (dir == Direction.SW) animSprite = player_unarmed_SW;
+            if (dir == Direction.NW) animSprite = player_unarmed_NW;
         } else if (shooting) {
             //System.out.println("Shooting " + shoot_dir);
-            if (shoot_dir == 0) animSprite = player_shooting_N;
-            if (shoot_dir == 1) animSprite = player_shooting_E;
-            if (shoot_dir == 2) animSprite = player_shooting_S;
-            if (shoot_dir == 3) animSprite = player_shooting_W;
-            if (shoot_dir == 4) animSprite = player_shooting_SE;
-            if (shoot_dir == 5) animSprite = player_shooting_NE;
-            if (shoot_dir == 6) animSprite = player_shooting_SW;
-            if (shoot_dir == 7) animSprite = player_shooting_NW;
+            if (shoot_dir == Direction.N) animSprite = player_shooting_N;
+            if (shoot_dir == Direction.E) animSprite = player_shooting_E;
+            if (shoot_dir == Direction.S) animSprite = player_shooting_S;
+            if (shoot_dir == Direction.W) animSprite = player_shooting_W;
+            if (shoot_dir == Direction.SE) animSprite = player_shooting_SE;
+            if (shoot_dir == Direction.NE) animSprite = player_shooting_NE;
+            if (shoot_dir == Direction.SW) animSprite = player_shooting_SW;
+            if (shoot_dir == Direction.NW) animSprite = player_shooting_NW;
         }
         sprite = animSprite.getSprite();
 

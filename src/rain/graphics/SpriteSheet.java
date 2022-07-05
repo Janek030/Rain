@@ -16,7 +16,7 @@ public class SpriteSheet {
     public static SpriteSheet projectile_wizard = new SpriteSheet("/textures/projectiles/wizard.png", 48, 48);
 
     public static SpriteSheet player = new SpriteSheet("/textures/player.png", 512, 256);
-    public static SpriteSheet mob = new SpriteSheet("/textures/mob.png", 512, 256);
+    
     public static SpriteSheet player_unarmed = new SpriteSheet(player, 0, 0, 4, 8, 32);
 
     public static SpriteSheet player_unarmed_S = new SpriteSheet(player_unarmed, 0, 0, 4, 1, 32);
@@ -27,7 +27,6 @@ public class SpriteSheet {
     public static SpriteSheet player_unarmed_NE = new SpriteSheet(player_unarmed, 0, 5, 4, 1, 32);
     public static SpriteSheet player_unarmed_E = new SpriteSheet(player_unarmed, 0, 6, 4, 1, 32);
     public static SpriteSheet player_unarmed_SE = new SpriteSheet(player_unarmed, 0, 7, 4, 1, 32);
-
 
     public static SpriteSheet player_shooting = new SpriteSheet(player, 8, 0, 4, 8, 32);
     public static SpriteSheet player_shooting_S = new SpriteSheet(player_shooting, 0, 0, 4, 1, 32);
@@ -41,6 +40,27 @@ public class SpriteSheet {
 
     public static SpriteSheet player_jump = new SpriteSheet(player, 12, 0, 4, 8, 32);
     public static SpriteSheet player_sword = new SpriteSheet(player, 4, 0, 4, 8, 32);
+
+    public static SpriteSheet dummy = new SpriteSheet("/textures/dummy.png", 512, 256);
+    public static SpriteSheet dummy_unarmed = new SpriteSheet(dummy, 0, 0, 4, 8, 32);
+
+    public static SpriteSheet dummy_unarmed_S = new SpriteSheet(dummy_unarmed, 0, 0, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_SW = new SpriteSheet(dummy_unarmed, 0, 1, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_W = new SpriteSheet(dummy_unarmed, 0, 2, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_NW = new SpriteSheet(dummy_unarmed, 0, 3, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_N = new SpriteSheet(dummy_unarmed, 0, 4, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_NE = new SpriteSheet(dummy_unarmed, 0, 5, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_E = new SpriteSheet(dummy_unarmed, 0, 6, 4, 1, 32);
+    public static SpriteSheet dummy_unarmed_SE = new SpriteSheet(dummy_unarmed, 0, 7, 4, 1, 32);
+    public static SpriteSheet dummy_shooting = new SpriteSheet(dummy, 8, 0, 4, 8, 32);
+    public static SpriteSheet dummy_shooting_S = new SpriteSheet(dummy_shooting, 0, 0, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_SW = new SpriteSheet(dummy_shooting, 0, 1, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_W = new SpriteSheet(dummy_shooting, 0, 2, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_NW = new SpriteSheet(dummy_shooting, 0, 3, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_N = new SpriteSheet(dummy_shooting, 0, 4, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_NE = new SpriteSheet(dummy_shooting, 0, 5, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_E = new SpriteSheet(dummy_shooting, 0, 6, 4, 1, 32);
+    public static SpriteSheet dummy_shooting_SE = new SpriteSheet(dummy_shooting, 0, 7, 4, 1, 32);
     private Sprite[] sprites;
 
 //    public SpriteSheet(String path, int size) {

@@ -15,8 +15,12 @@ public abstract class Mob extends Entity {
     Mob is a generic rain.entity with a Sprite and ability to move
      */
     protected Sprite sprite;
-    protected int dir = 0; // 0-7
-    protected int shoot_dir = 0; // 0-7
+    
+    protected enum Direction {
+        N, E, S, W, SE, NE, SW, NW
+    }
+    protected Direction dir = Direction.N; // 0-7
+    protected Direction shoot_dir = Direction.N; // 0-7
     protected boolean moving = false;
     protected boolean walking = false;
     protected boolean shooting = false;
@@ -26,15 +30,15 @@ public abstract class Mob extends Entity {
         if (!collision(0, ya)) y += ya;
         if (!collision(xa, 0)) x += xa;
 
-        if (xa > 0 && ya == 0) dir = 1; //E
-        if (xa < 0 && ya == 0) dir = 3; //W
-        if (xa == 0 && ya > 0) dir = 2; //S
-        if (xa == 0 && ya < 0) dir = 0; //N
+        if (xa > 0 && ya == 0) dir = Direction.E; //E
+        if (xa < 0 && ya == 0) dir = Direction.W; //W
+        if (xa == 0 && ya > 0) dir = Direction.S; //S
+        if (xa == 0 && ya < 0) dir = Direction.N; //N
 
-        if (xa > 0 && ya > 0) dir = 4; //SE
-        if (xa > 0 && ya < 0) dir = 5; //NE
-        if (xa < 0 && ya > 0) dir = 6; //SW
-        if (xa < 0 && ya < 0) dir = 7; //NW
+        if (xa > 0 && ya > 0) dir = Direction.SE; //SE
+        if (xa > 0 && ya < 0) dir = Direction.NE; //NE
+        if (xa < 0 && ya > 0) dir = Direction.SW; //SW
+        if (xa < 0 && ya < 0) dir = Direction.NW; //NW
     }
 
     public abstract void update();
@@ -42,34 +46,34 @@ public abstract class Mob extends Entity {
     protected void shoot(int x, int y, double dir) {
         int range = (int) (dir / (Math.PI / 8));
         if (-1 < range && range <= 1) {
-            shoot_dir = 1; //E
+            shoot_dir = Direction.E; //E
             x += 8;
             y -= 12;
         } else if (1 < range && range <= 3) {
-            shoot_dir = 4; //SE
+            shoot_dir = Direction.SE; //SE
             x += 4;
         } else if (3 < range && range <= 5) {
-            shoot_dir = 2; //S
+            shoot_dir = Direction.S; //S
             x -= 7;
             y -= 2;
         } else if (5 < range && range <= 7) {
-            shoot_dir = 6; //SW
+            shoot_dir = Direction.SW; //SW
             x -= 18;
             //y -= 12;
         } else if (7 < range || range <= -7) {
-            shoot_dir = 3; //W
+            shoot_dir = Direction.W; //W
             x -= 22;
             y -= 12;
         } else if (-7 < range && range <= -5) {
-            shoot_dir = 7; //NW
+            shoot_dir = Direction.NW; //NW
             x -= 18;
             y -= 15;
         } else if (-5 < range && range <= -3) {
-            shoot_dir = 0; //N
+            shoot_dir = Direction.N; //N
             x -= 7;
             y -= 25;
         } else if (-4 < range && range <= -1) {
-            shoot_dir = 5; //NE
+            shoot_dir = Direction.NE; //NE
             x += 4;
             y -= 15;
         }

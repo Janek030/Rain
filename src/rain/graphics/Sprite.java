@@ -30,44 +30,44 @@ public class Sprite {
 
 
     // Player Sprites next:
-    public static Sprite mob_S = new Sprite(32, 0, 0, SpriteSheet.mob);
-    public static Sprite mob_S_1 = new Sprite(32, 1, 0, SpriteSheet.mob);
-    public static Sprite mob_S_2 = new Sprite(32, 2, 0, SpriteSheet.mob);
-    public static Sprite mob_S_3 = new Sprite(32, 3, 0, SpriteSheet.mob);
-    public static Sprite mob_W = new Sprite(32, 0, 2, SpriteSheet.mob);
-    public static Sprite mob_W_1 = new Sprite(32, 1, 2, SpriteSheet.mob);
-    public static Sprite mob_W_2 = new Sprite(32, 2, 2, SpriteSheet.mob);
-    public static Sprite mob_W_3 = new Sprite(32, 3, 2, SpriteSheet.mob);
-
-    public static Sprite mob_N = new Sprite(32, 0, 4, SpriteSheet.mob);
-    public static Sprite mob_N_1 = new Sprite(32, 1, 4, SpriteSheet.mob);
-    public static Sprite mob_N_2 = new Sprite(32, 2, 4, SpriteSheet.mob);
-    public static Sprite mob_N_3 = new Sprite(32, 3, 4, SpriteSheet.mob);
-
-    public static Sprite mob_E = new Sprite(32, 0, 6, SpriteSheet.mob);
-    public static Sprite mob_E_1 = new Sprite(32, 1, 6, SpriteSheet.mob);
-    public static Sprite mob_E_2 = new Sprite(32, 2, 6, SpriteSheet.mob);
-    public static Sprite mob_E_3 = new Sprite(32, 3, 6, SpriteSheet.mob);
-
-    public static Sprite mob_NE = new Sprite(32, 0, 5, SpriteSheet.mob);
-    public static Sprite mob_NE_1 = new Sprite(32, 1, 5, SpriteSheet.mob);
-    public static Sprite mob_NE_2 = new Sprite(32, 2, 5, SpriteSheet.mob);
-    public static Sprite mob_NE_3 = new Sprite(32, 3, 5, SpriteSheet.mob);
-
-    public static Sprite mob_NW = new Sprite(32, 0, 3, SpriteSheet.mob);
-    public static Sprite mob_NW_1 = new Sprite(32, 1, 3, SpriteSheet.mob);
-    public static Sprite mob_NW_2 = new Sprite(32, 2, 3, SpriteSheet.mob);
-    public static Sprite mob_NW_3 = new Sprite(32, 3, 3, SpriteSheet.mob);
-
-    public static Sprite mob_SE = new Sprite(32, 0, 7, SpriteSheet.mob);
-    public static Sprite mob_SE_1 = new Sprite(32, 1, 7, SpriteSheet.mob);
-    public static Sprite mob_SE_2 = new Sprite(32, 2, 7, SpriteSheet.mob);
-    public static Sprite mob_SE_3 = new Sprite(32, 3, 7, SpriteSheet.mob);
-
-    public static Sprite mob_SW = new Sprite(32, 0, 1, SpriteSheet.mob);
-    public static Sprite mob_SW_1 = new Sprite(32, 1, 1, SpriteSheet.mob);
-    public static Sprite mob_SW_2 = new Sprite(32, 2, 1, SpriteSheet.mob);
-    public static Sprite mob_SW_3 = new Sprite(32, 3, 1, SpriteSheet.mob);
+//    public static Sprite mob_S = new Sprite(32, 0, 0, SpriteSheet.mob);
+//    public static Sprite mob_S_1 = new Sprite(32, 1, 0, SpriteSheet.mob);
+//    public static Sprite mob_S_2 = new Sprite(32, 2, 0, SpriteSheet.mob);
+//    public static Sprite mob_S_3 = new Sprite(32, 3, 0, SpriteSheet.mob);
+//    public static Sprite mob_W = new Sprite(32, 0, 2, SpriteSheet.mob);
+//    public static Sprite mob_W_1 = new Sprite(32, 1, 2, SpriteSheet.mob);
+//    public static Sprite mob_W_2 = new Sprite(32, 2, 2, SpriteSheet.mob);
+//    public static Sprite mob_W_3 = new Sprite(32, 3, 2, SpriteSheet.mob);
+//
+//    public static Sprite mob_N = new Sprite(32, 0, 4, SpriteSheet.mob);
+//    public static Sprite mob_N_1 = new Sprite(32, 1, 4, SpriteSheet.mob);
+//    public static Sprite mob_N_2 = new Sprite(32, 2, 4, SpriteSheet.mob);
+//    public static Sprite mob_N_3 = new Sprite(32, 3, 4, SpriteSheet.mob);
+//
+//    public static Sprite mob_E = new Sprite(32, 0, 6, SpriteSheet.mob);
+//    public static Sprite mob_E_1 = new Sprite(32, 1, 6, SpriteSheet.mob);
+//    public static Sprite mob_E_2 = new Sprite(32, 2, 6, SpriteSheet.mob);
+//    public static Sprite mob_E_3 = new Sprite(32, 3, 6, SpriteSheet.mob);
+//
+//    public static Sprite mob_NE = new Sprite(32, 0, 5, SpriteSheet.mob);
+//    public static Sprite mob_NE_1 = new Sprite(32, 1, 5, SpriteSheet.mob);
+//    public static Sprite mob_NE_2 = new Sprite(32, 2, 5, SpriteSheet.mob);
+//    public static Sprite mob_NE_3 = new Sprite(32, 3, 5, SpriteSheet.mob);
+//
+//    public static Sprite mob_NW = new Sprite(32, 0, 3, SpriteSheet.mob);
+//    public static Sprite mob_NW_1 = new Sprite(32, 1, 3, SpriteSheet.mob);
+//    public static Sprite mob_NW_2 = new Sprite(32, 2, 3, SpriteSheet.mob);
+//    public static Sprite mob_NW_3 = new Sprite(32, 3, 3, SpriteSheet.mob);
+//
+//    public static Sprite mob_SE = new Sprite(32, 0, 7, SpriteSheet.mob);
+//    public static Sprite mob_SE_1 = new Sprite(32, 1, 7, SpriteSheet.mob);
+//    public static Sprite mob_SE_2 = new Sprite(32, 2, 7, SpriteSheet.mob);
+//    public static Sprite mob_SE_3 = new Sprite(32, 3, 7, SpriteSheet.mob);
+//
+//    public static Sprite mob_SW = new Sprite(32, 0, 1, SpriteSheet.mob);
+//    public static Sprite mob_SW_1 = new Sprite(32, 1, 1, SpriteSheet.mob);
+//    public static Sprite mob_SW_2 = new Sprite(32, 2, 1, SpriteSheet.mob);
+//    public static Sprite mob_SW_3 = new Sprite(32, 3, 1, SpriteSheet.mob);
 
     // Projectile Sprites next:
     public static Sprite projectile_wizard = new Sprite(16, 0, 0, SpriteSheet.projectile_wizard);
