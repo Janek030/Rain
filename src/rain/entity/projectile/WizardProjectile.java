@@ -51,6 +51,7 @@ public class WizardProjectile extends Projectile {
         x += nx;
         y += ny;
         if (distance() > range) this.remove();
+
     }
 
     private double distance() {
@@ -58,6 +59,7 @@ public class WizardProjectile extends Projectile {
     }
 
     public void render(Screen screen) {
+
         screen.renderProjectile((int) x, (int) y, this, 0);
     }
 }

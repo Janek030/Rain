@@ -61,6 +61,27 @@ public class SpriteSheet {
     public static SpriteSheet dummy_shooting_NE = new SpriteSheet(dummy_shooting, 0, 5, 4, 1, 32);
     public static SpriteSheet dummy_shooting_E = new SpriteSheet(dummy_shooting, 0, 6, 4, 1, 32);
     public static SpriteSheet dummy_shooting_SE = new SpriteSheet(dummy_shooting, 0, 7, 4, 1, 32);
+
+    public static SpriteSheet chaser = new SpriteSheet("/textures/chaser.png", 512, 256);
+    public static SpriteSheet chaser_unarmed = new SpriteSheet(chaser, 0, 0, 4, 8, 32);
+
+    public static SpriteSheet chaser_unarmed_S = new SpriteSheet(chaser_unarmed, 0, 0, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_SW = new SpriteSheet(chaser_unarmed, 0, 1, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_W = new SpriteSheet(chaser_unarmed, 0, 2, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_NW = new SpriteSheet(chaser_unarmed, 0, 3, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_N = new SpriteSheet(chaser_unarmed, 0, 4, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_NE = new SpriteSheet(chaser_unarmed, 0, 5, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_E = new SpriteSheet(chaser_unarmed, 0, 6, 4, 1, 32);
+    public static SpriteSheet chaser_unarmed_SE = new SpriteSheet(chaser_unarmed, 0, 7, 4, 1, 32);
+    public static SpriteSheet chaser_shooting = new SpriteSheet(chaser, 8, 0, 4, 8, 32);
+    public static SpriteSheet chaser_shooting_S = new SpriteSheet(chaser_shooting, 0, 0, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_SW = new SpriteSheet(chaser_shooting, 0, 1, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_W = new SpriteSheet(chaser_shooting, 0, 2, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_NW = new SpriteSheet(chaser_shooting, 0, 3, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_N = new SpriteSheet(chaser_shooting, 0, 4, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_NE = new SpriteSheet(chaser_shooting, 0, 5, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_E = new SpriteSheet(chaser_shooting, 0, 6, 4, 1, 32);
+    public static SpriteSheet chaser_shooting_SE = new SpriteSheet(chaser_shooting, 0, 7, 4, 1, 32);
     private Sprite[] sprites;
 
 //    public SpriteSheet(String path, int size) {

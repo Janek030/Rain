@@ -36,8 +36,9 @@ public class Dummy extends Mob {
     private int ya = 0;
 
     public Dummy(int x, int y) {
-        this.x = x << 4;
-        this.y = y << 4;
+        super(x << 4,y << 4, null);
+//        this.x = x << 4;
+//        this.y = y << 4;
         sprite = animSprite;
         dir = Direction.S;
         moving = false;
@@ -141,7 +142,7 @@ public class Dummy extends Mob {
 
         int xx = x - sprite.SIZE / 2;
         int yy = y - sprite.SIZE / 2;
-        screen.renderMob(xx, yy, sprite);
+        screen.renderMob(xx, yy, this);
         //screen.renderMob(x, y, sprite);
 
     }

@@ -15,8 +15,8 @@ public class Player extends Mob {
 
     private Keyboard input;
     private Mouse mouse;
-    private Sprite sprite;
-//    private int anim;
+
+
 
 
     private AnimatedSprite player_unarmed_S = new AnimatedSprite(SpriteSheet.player_unarmed_S, 4, 1, 4,10);
@@ -39,15 +39,16 @@ public class Player extends Mob {
     private int fireRate = 0;
 
 
-    public Player(Keyboard input) {
-        this.input = input;
-        sprite = player_unarmed_S;
-//        animSprite = player_unarmed_S;
-    }
+//    public Player(Keyboard input) {
+//        this.input = input;
+//        sprite = player_unarmed_S;
+////        animSprite = player_unarmed_S;
+//    }
 
     public Player(int x, int y, Keyboard input, Mouse mouse) {
-        this.x = x;
-        this.y = y;
+        super(x,y,null);
+        //this.x = x;
+        //this.y = y;
         this.input = input;
         this.mouse = mouse;
         sprite = player_unarmed_S;
@@ -80,7 +81,7 @@ public class Player extends Mob {
             Projectile p = level.getProjectiles().get(i);
 
             if (p.isRemoved()) {
-                //System.out.println("projectile" + i + " out of " +projectiles.size() + "removed: " + p.isRemoved());
+//System.out.println("projectile" + i + " out of " +projectiles.size() + "removed: " + p.isRemoved());
                 level.getProjectiles().remove(i);
             }
         }
@@ -93,6 +94,7 @@ public class Player extends Mob {
             double dx = mouse.getX() - Game.getWindowWidth() / 2; // 400*3/2;
             double dy = mouse.getY() - Game.getWindowHeight() / 2; //168*3/2;
             double dir = Math.atan2(dy, dx);
+            //System.out.println("Player.updateShooting.shoot: (" + x + " | " + y + ")");
             shoot(x, y, dir);
 
             fireRate = WizardProjectile.FIRE_RATE;
@@ -134,7 +136,7 @@ public class Player extends Mob {
 
         int xx = x - sprite.SIZE / 2;
         int yy = y - sprite.SIZE / 2;
-        screen.renderMob(xx, yy, sprite);
+        screen.renderMob(xx, yy, this);
 
     }
 }

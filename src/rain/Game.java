@@ -49,16 +49,16 @@ public class Game extends Canvas implements Runnable {
         key = new Keyboard();
         mouse = new Mouse();
 
-//        rain.level = new RandomLevel(64, 64);
-        level = new SpawnLevel("/levels/spawn.png");
+        //level = Level.random;
+        level = Level.spawn;
 
         TileCoordinate playerSpawn = new TileCoordinate(20, 56);
+
         player = new Player(playerSpawn.x(), playerSpawn.y(), key, mouse);
-
+        level.add(player);
         player.init(level);
+
         addKeyListener(key);
-
-
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
     }
@@ -125,7 +125,7 @@ public class Game extends Canvas implements Runnable {
     //    int x = 0, y = 0;
     public void update() { // "tick"
         key.update();
-        player.update();
+        //player.update();
         level.update();
 
     }
@@ -143,11 +143,11 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         screen.clear();
-        int xScroll = player.x - screen.width/2;
-        int yScroll = player.y - screen.height/2;
+        int xScroll = player.getX() - screen.width/2;
+        int yScroll = player.getY() - screen.height/2;
 
         level.render(xScroll, yScroll, screen);
-        player.render(screen);
+        //player.render(screen);
         //screen.renderSheet(40,40, SpriteSheet.player_jump,false);
         for (int i = 0; i < pixels.length; i++) {
             pixels[i] = screen.pixels[i];
@@ -157,8 +157,9 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Verdana", 0, 40));
-        //g.drawString("X: " + Mouse.getX() + ", Y: " + Mouse.getY()+ ", B: " + Mouse.getButton(), 350, 300);
+        g.setFont(new Font("Verdana", 0, 20));
+        g.drawString("X: " + Mouse.getX() + ", Y: " + Mouse.getY()+ ", B: " + Mouse.getButton(), 10, 60);
+        g.drawString("Player: (" + player.getX() + " | " + player.getY()+ ")", 10, 30);
         g.dispose();
         bs.show();
 

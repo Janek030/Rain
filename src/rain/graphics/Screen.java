@@ -1,5 +1,7 @@
 package rain.graphics;
 
+import rain.entity.mob.Chaser;
+import rain.entity.mob.Mob;
 import rain.entity.projectile.Projectile;
 import rain.level.tile.Tile;
 
@@ -103,6 +105,7 @@ public class Screen {
     }
 
     public void renderProjectile(int xp, int yp, Projectile p, int flip) {
+
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
         for (int y = 0; y < p.getSpriteSize(); y++) {
@@ -114,7 +117,6 @@ public class Screen {
                 int xa = x + xp; //x-absolute
                 int xs = x;
                 if (flip == 1 || flip == 3) xs = p.getSpriteSize() - 1 - x;
-
                 if (xa < -p.getSpriteSize() || xa >= width || ya < 0 || ya >= height)
                     break; // only render what you can see on screen
                 if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
@@ -122,11 +124,12 @@ public class Screen {
                 int col = p.getSprite().pixels[xs + ys * p.getSpriteSize()];
                 if (col != 0xFFFF00FF) pixels[xa + ya * width] = col;  // make pink transparent
 
+
             }
         }
     }
 
-    public void renderMob(int xp, int yp, Sprite sprite) {
+    public void renderSprite(int xp, int yp, Sprite sprite) {
         xp -= xOffset; // move map to opposite direction of player's movement
         yp -= yOffset;
         for (int y = 0; y < sprite.SIZE; y++) {
@@ -142,8 +145,28 @@ public class Screen {
         }
     }
 
+    public void renderMob(int xp, int yp, Mob mob) {
+        xp -= xOffset; // move map to opposite direction of player's movement
+        yp -= yOffset;
+        for (int y = 0; y < mob.getSprite().SIZE; y++) {
+            int ya = y + yp; //y-absolute; (y + yp) == [0-15] + [offset
+            for (int x = 0; x < mob.getSprite().SIZE; x++) {
+                int xa = x + xp; //x-absolute
+                if (xa < -mob.getSprite().SIZE || xa >= width || ya < 0 || ya >= height)
+                    break; // only render what you can see on screen
+                if (xa < 0) xa = 0; //if xa is outside of screen (by less than one tile) reset to 0
+                int col = mob.getSprite().pixels[x + y * mob.getSprite().SIZE];
+                if (col != 0xFFFF00FF) pixels[xa + ya * width] = col;  // make pink transparent
+
+                //TODO: Adjust color code for Mob-level
+                if ((mob instanceof Chaser) && (col == 0xFF1151FF)) pixels[xa + ya * width] =  0xFF08FF00;
+            }
+        }
+    }
+
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
+        //System.out.println("Offset: " + xOffset + " | " + yOffset);
     }
 }

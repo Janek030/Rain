@@ -1,6 +1,7 @@
 package rain.level;
 
 import rain.entity.Entity;
+import rain.entity.mob.Player;
 import rain.entity.particle.Particle;
 import rain.entity.projectile.Projectile;
 import rain.graphics.Screen;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level {
+
     protected int width, height; //tile precise
     protected int[] tilesInt;
     protected int[] tilesCol; // color values
@@ -17,7 +19,9 @@ public class Level {
     private List<Entity> entities = new ArrayList<Entity>();
     private List<Projectile> projectiles = new ArrayList<Projectile>();
     private List<Particle> particles = new ArrayList<Particle>();
-
+    private List<Player> players = new ArrayList<Player>();
+    public static Level spawn = new SpawnLevel("/levels/spawn.png");
+    public static Level random = new RandomLevel(64, 64);
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
@@ -28,10 +32,8 @@ public class Level {
     }
 
     public Level(String path) {
-
         loadLevel(path);
         generateLevel();
-
     }
 
     protected void generateLevel() {
@@ -54,6 +56,10 @@ public class Level {
         for (int i = 0; i < particles.size(); i++) {
             particles.get(i).update();
         }
+
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).update();
+        }
         remove();
     }
 
@@ -69,6 +75,10 @@ public class Level {
         for (int i = 0; i < particles.size(); i++) {
             if (particles.get(i).isRemoved()) particles.remove(i);
         }
+
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).isRemoved()) players.remove(i);
+        }
     }
 
     public List<Projectile> getProjectiles() {
@@ -78,24 +88,6 @@ public class Level {
     private void time() {
     }
 
-//    public boolean tileCollision(double x, double y, double xa, double ya) {
-//        /*
-//        x|x current position
-//        1) Determine future position pixel
-//        2) Widen Collision Coordinate to Collision area
-//        3) Convert Collision area corner pixels to tile coordinate
-//        4) Check whether target tile is solid
-//         */
-//        boolean collision = false;
-//        int xt, yt;
-//
-//        for (int c = 0; c < 4; c++) {
-//            xt = (((int) x + (int) xa) + c % 2 * 9) >> 4;
-//            yt = (((int) y + (int) ya) + c / 2 * 7 + 4) >> 4;
-//            if (getTile((int) xt, (int) yt).solid()) collision = true;
-//        }
-//        return collision;
-//    }
 
     public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) {
 
@@ -149,6 +141,9 @@ public class Level {
         for (int i = 0; i < particles.size(); i++) {
             particles.get(i).render(screen);
         }
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).render(screen);
+        }
     }
 
     public void add(Entity e) {
@@ -157,14 +152,27 @@ public class Level {
             particles.add((Particle) e);
         } else if (e instanceof Projectile) {
             projectiles.add((Projectile) e);
+        } else if (e instanceof Player) {
+            players.add((Player) e);
         } else {
             entities.add(e);
         }
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
 
     public Tile getTile(int x, int y) {
         //will be overwritten by Level specific implementation
         return Tile.voidTile;
+    }
+
+    public Player getPlayerAt(int index) {
+        return players.get(index);
+    }
+
+    public Player getClientPlayer() {
+        return players.get(0);
     }
 }

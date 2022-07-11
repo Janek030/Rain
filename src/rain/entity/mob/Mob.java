@@ -14,8 +14,8 @@ public abstract class Mob extends Entity {
     /*
     Mob is a generic rain.entity with a Sprite and ability to move
      */
-    protected Sprite sprite;
-    
+
+
     protected enum Direction {
         N, E, S, W, SE, NE, SW, NW
     }
@@ -40,10 +40,15 @@ public abstract class Mob extends Entity {
         if (xa < 0 && ya > 0) dir = Direction.SW; //SW
         if (xa < 0 && ya < 0) dir = Direction.NW; //NW
     }
-
+    public Mob(int x, int y, Sprite sprite){
+        super(x,y, sprite);
+    }
     public abstract void update();
+
     public abstract void render(Screen screen);
+
     protected void shoot(int x, int y, double dir) {
+
         int range = (int) (dir / (Math.PI / 8));
         if (-1 < range && range <= 1) {
             shoot_dir = Direction.E; //E
@@ -77,10 +82,10 @@ public abstract class Mob extends Entity {
             x += 4;
             y -= 15;
         }
+
         Projectile p = new WizardProjectile(x, y, dir);
         level.add(p);
     }
-
 
 
     private boolean collision(int xa, int ya) {
@@ -94,9 +99,10 @@ public abstract class Mob extends Entity {
         int xt, yt;
         int colAreaRight = 11;
         int colAreaLeft = 6;
-        int colAreaHeightDown = 20;
-        int colAreaHeightTop = 5;
+        int colAreaHeightDown = 16; //20
+        int colAreaHeightTop = 1; //5
         for (int c = 0; c < 4; c++) {
+            //TODO: Issue: If collision area is wider/higher than tile size (16px) character might pass through solid tile
             xt = ((x + xa) + c % 2 * colAreaRight - colAreaLeft) >> 4;
             yt = ((y + ya) + c / 2 * colAreaHeightDown - colAreaHeightTop) >> 4;
             if (level.getTile(xt, yt).solid()) solid = true;
