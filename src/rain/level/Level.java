@@ -22,6 +22,7 @@ public class Level {
     private List<Player> players = new ArrayList<Player>();
     public static Level spawn = new SpawnLevel("/levels/spawn.png");
     public static Level random = new RandomLevel(64, 64);
+
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
@@ -163,6 +164,34 @@ public class Level {
         return players;
     }
 
+    public List<Entity> getEntities(Entity e, int radius) {
+        int ex = e.getX();
+        int ey = e.getY();
+        List<Entity> result = new ArrayList<Entity>();
+        for (int i = 0; i < entities.size(); i++) {
+            Entity entity = entities.get(i);
+            int x = entity.getX();
+            int y = entity.getY();
+            double distance = Math.sqrt(((ex - x) * (ex - x)) + ((ey - y) * (ey - y))); //phytagoran theorem
+            if (distance <= radius) result.add(entity);
+        }
+        return result;
+    }
+
+    public List<Player> getPlayers(Entity e, int radius) {
+        int ex = e.getX();
+        int ey = e.getY();
+        List<Player> result = new ArrayList<Player>();
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            int x = player.getX();
+            int y = player.getY();
+            double distance = Math.sqrt(((ex - x) * (ex - x)) + ((ey - y) * (ey - y))); //phytagoran theorem
+            if (distance <= radius) result.add(player);
+        }
+        return result;
+    }
+
     public Tile getTile(int x, int y) {
         //will be overwritten by Level specific implementation
         return Tile.voidTile;
@@ -175,4 +204,6 @@ public class Level {
     public Player getClientPlayer() {
         return players.get(0);
     }
+
+
 }

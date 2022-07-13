@@ -1,6 +1,7 @@
 package rain.entity.mob;
 
 import rain.Game;
+import rain.entity.Entity;
 import rain.entity.projectile.Projectile;
 import rain.entity.projectile.WizardProjectile;
 import rain.graphics.AnimatedSprite;
@@ -9,6 +10,8 @@ import rain.graphics.Sprite;
 import rain.graphics.SpriteSheet;
 import rain.input.Keyboard;
 import rain.input.Mouse;
+
+import java.util.List;
 
 
 public class Player extends Mob {
@@ -56,15 +59,16 @@ public class Player extends Mob {
     }
 
     public void update() {
+
         if (walking || shooting) animSprite.update();
         else animSprite.setFrame(0);
 
         if (fireRate > 0) fireRate--;
         int xa = 0, ya = 0;
-        if (input.up) ya--;
-        if (input.down) ya++;
-        if (input.left) xa--;
-        if (input.right) xa++;
+        if (input.up) ya-=2;
+        if (input.down) ya+=2;
+        if (input.left) xa-=2;
+        if (input.right) xa+=2;
         if (xa != 0 || ya != 0) {
             move(xa, ya);
             walking = true;

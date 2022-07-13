@@ -19,6 +19,7 @@ public abstract class Mob extends Entity {
     protected enum Direction {
         N, E, S, W, SE, NE, SW, NW
     }
+
     protected Direction dir = Direction.N; // 0-7
     protected Direction shoot_dir = Direction.N; // 0-7
     protected boolean moving = false;
@@ -27,8 +28,18 @@ public abstract class Mob extends Entity {
     private boolean jumping = false;
 
     public void move(int xa, int ya) {
-        if (!collision(0, ya)) y += ya;
-        if (!collision(xa, 0)) x += xa;
+
+        for (int x = 0; x < Math.abs(xa); x++) {
+            if (!collision(abs(xa), 0)) this.x += abs(xa);
+        }
+
+        for (int y = 0; y < Math.abs(ya); y++) {
+            if (!collision(0, abs(ya))) this.y += abs(ya);
+
+        }
+
+//        if (!collision(0, ya)) y += ya;
+//        if (!collision(xa, 0)) x += xa;
 
         if (xa > 0 && ya == 0) dir = Direction.E; //E
         if (xa < 0 && ya == 0) dir = Direction.W; //W
@@ -40,9 +51,17 @@ public abstract class Mob extends Entity {
         if (xa < 0 && ya > 0) dir = Direction.SW; //SW
         if (xa < 0 && ya < 0) dir = Direction.NW; //NW
     }
-    public Mob(int x, int y, Sprite sprite){
-        super(x,y, sprite);
+
+    public Mob(int x, int y, Sprite sprite) {
+        super(x, y, sprite);
     }
+
+    private int abs(double value) {
+        if (value < 0) return -1;
+        return 1;
+
+    }
+
     public abstract void update();
 
     public abstract void render(Screen screen);
@@ -88,7 +107,7 @@ public abstract class Mob extends Entity {
     }
 
 
-    private boolean collision(int xa, int ya) {
+    private boolean collision(double xa, double ya) {
         /*
         1) Determine future position pixel
         2) Widen Collision Coordinate to Collision area
@@ -96,16 +115,25 @@ public abstract class Mob extends Entity {
         4) Check whether target tile is solid
          */
         boolean solid = false;
-        int xt, yt;
-        int colAreaRight = 11;
-        int colAreaLeft = 6;
-        int colAreaHeightDown = 16; //20
-        int colAreaHeightTop = 1; //5
+        double xt, yt;
+
         for (int c = 0; c < 4; c++) {
-            //TODO: Issue: If collision area is wider/higher than tile size (16px) character might pass through solid tile
-            xt = ((x + xa) + c % 2 * colAreaRight - colAreaLeft) >> 4;
-            yt = ((y + ya) + c / 2 * colAreaHeightDown - colAreaHeightTop) >> 4;
-            if (level.getTile(xt, yt).solid()) solid = true;
+            //TODO: Adjust  Offsets
+            xt = ((x + xa) - c % 2 * 4 - 6) / 16; // remainder  0, 1, 0, 1
+            yt = ((y + ya) - c / 2 * 32 + 15) / 16; // quotient   0, 0, 1, 1
+
+//            System.out.println(c + ": [" +xt +"|" + yt  + "]");
+
+
+            //in case of offset/size-shift --> round up
+            int ix = (int) Math.ceil(xt); //round up
+            int iy = (int) Math.ceil(yt); //round up
+
+            //otherwise --> round down
+            if (c % 2 == 0) ix = (int) Math.floor(xt); //round down
+            if (c / 2 == 0) iy = (int) Math.floor(yt); //round down
+//            System.out.println(c + ": [" +ix  +"|" + iy  + "]");
+            if (level.getTile(ix, iy).solid()) solid = true;
         }
         return solid;
     }
