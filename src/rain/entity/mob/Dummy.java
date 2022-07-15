@@ -27,13 +27,14 @@ public class Dummy extends Mob {
     private AnimatedSprite dummy_shooting_E = new AnimatedSprite(SpriteSheet.dummy_shooting_E, 4, 1, 4, 3);
     private AnimatedSprite dummy_shooting_SE = new AnimatedSprite(SpriteSheet.dummy_shooting_SE, 4, 1, 4, 3);
     private AnimatedSprite animSprite = dummy_unarmed_S;
-
+    double  xa = 0; // class wide defined so it doesn't get reset
+    double  ya = 0;// class wide defined so it doesn't get reset
 
     private int fireRate = 0;
     private int ShootFrequency = 5;
+    private double speed = 1;
     private int time = 0;
-    private int xa = 0;
-    private int ya = 0;
+
 
     public Dummy(int x, int y) {
         super(x << 4,y << 4, null);
@@ -41,7 +42,7 @@ public class Dummy extends Mob {
 //        this.y = y << 4;
         sprite = animSprite;
         dir = Direction.S;
-        moving = false;
+        walking = false;
     }
 
     public void update() {
@@ -53,14 +54,14 @@ public class Dummy extends Mob {
 
 
         if (time % (random.nextInt(50) + 30) == 0) {
-            ya = random.nextInt(3) - 1; //[-1|0|1]
-            xa = random.nextInt(3) - 1;
+            ya = speed * (random.nextInt(3) - 1); //[-1|0|1]
+            xa = speed * (random.nextInt(3) - 1);
             if (random.nextInt(4) == 0) {
                 xa = 0;
                 ya = 0;
             }
 
-            shooting = (random.nextInt(ShootFrequency) == 0);
+            //shooting = (random.nextInt(ShootFrequency) == 0);
         }
         if (xa < 0) {
             if (ya < 0) {
@@ -140,8 +141,8 @@ public class Dummy extends Mob {
         }
         sprite = animSprite.getSprite();
 
-        int xx = x - sprite.SIZE / 2;
-        int yy = y - sprite.SIZE / 2;
+        int xx = (int) (x - sprite.SIZE / 2);
+        int yy = (int) (y - sprite.SIZE / 2);
         screen.renderMob(xx, yy, this);
         //screen.renderMob(x, y, sprite);
 

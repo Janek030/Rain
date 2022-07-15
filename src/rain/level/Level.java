@@ -165,13 +165,13 @@ public class Level {
     }
 
     public List<Entity> getEntities(Entity e, int radius) {
-        int ex = e.getX();
-        int ey = e.getY();
+        int ex = (int)e.getX();
+        int ey = (int)e.getY();
         List<Entity> result = new ArrayList<Entity>();
         for (int i = 0; i < entities.size(); i++) {
             Entity entity = entities.get(i);
-            int x = entity.getX();
-            int y = entity.getY();
+            int x = (int)entity.getX();
+            int y = (int)entity.getY();
             double distance = Math.sqrt(((ex - x) * (ex - x)) + ((ey - y) * (ey - y))); //phytagoran theorem
             if (distance <= radius) result.add(entity);
         }
@@ -179,13 +179,13 @@ public class Level {
     }
 
     public List<Player> getPlayers(Entity e, int radius) {
-        int ex = e.getX();
-        int ey = e.getY();
+        int ex = (int) e.getX();
+        int ey = (int) e.getY();
         List<Player> result = new ArrayList<Player>();
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            int x = player.getX();
-            int y = player.getY();
+            int x = (int) player.getX();
+            int y = (int) player.getY();
             double distance = Math.sqrt(((ex - x) * (ex - x)) + ((ey - y) * (ey - y))); //phytagoran theorem
             if (distance <= radius) result.add(player);
         }

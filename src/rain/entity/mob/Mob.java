@@ -22,24 +22,12 @@ public abstract class Mob extends Entity {
 
     protected Direction dir = Direction.N; // 0-7
     protected Direction shoot_dir = Direction.N; // 0-7
-    protected boolean moving = false;
+    //protected boolean moving = false;
     protected boolean walking = false;
     protected boolean shooting = false;
     private boolean jumping = false;
 
-    public void move(int xa, int ya) {
-
-        for (int x = 0; x < Math.abs(xa); x++) {
-            if (!collision(abs(xa), 0)) this.x += abs(xa);
-        }
-
-        for (int y = 0; y < Math.abs(ya); y++) {
-            if (!collision(0, abs(ya))) this.y += abs(ya);
-
-        }
-
-//        if (!collision(0, ya)) y += ya;
-//        if (!collision(xa, 0)) x += xa;
+    public void move(double xa, double ya) {
 
         if (xa > 0 && ya == 0) dir = Direction.E; //E
         if (xa < 0 && ya == 0) dir = Direction.W; //W
@@ -50,7 +38,38 @@ public abstract class Mob extends Entity {
         if (xa > 0 && ya < 0) dir = Direction.NE; //NE
         if (xa < 0 && ya > 0) dir = Direction.SW; //SW
         if (xa < 0 && ya < 0) dir = Direction.NW; //NW
+
+        //System.out.println("Move: [" + this.x + "|" + this.y + "] >> [" + xa + "|" + ya + "]");
+
+        while (xa != 0) {
+            if (Math.abs(xa) > 1) {
+                if (!collision(abs(xa), 0)) this.x += abs(xa);
+                xa -= abs(xa);
+            } else {
+                if (!collision(abs(xa), 0)) this.x += xa;
+                xa = 0;
+            }
+        }
+
+        while (ya != 0) {
+            if (Math.abs(ya) > 1) {
+                if (!collision(0, abs(ya))) this.y += abs(ya);
+                ya -= abs(ya);
+            } else {
+                if (!collision(0, abs(ya))) this.y += ya;
+                ya = 0;
+            }
+        }
+
+//        for (int x = 0; x < Math.abs(xa); x++) {
+//            if (!collision(abs(xa), 0)) this.x += abs(xa);
+//        }
+//
+//        for (int y = 0; y < Math.abs(ya); y++) {
+//            if (!collision(0, abs(ya))) this.y += abs(ya);
+
     }
+
 
     public Mob(int x, int y, Sprite sprite) {
         super(x, y, sprite);
@@ -62,11 +81,12 @@ public abstract class Mob extends Entity {
 
     }
 
+
     public abstract void update();
 
     public abstract void render(Screen screen);
 
-    protected void shoot(int x, int y, double dir) {
+    protected void shoot(double x, double y, double dir) {
 
         int range = (int) (dir / (Math.PI / 8));
         if (-1 < range && range <= 1) {

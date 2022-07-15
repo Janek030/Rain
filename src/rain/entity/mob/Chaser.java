@@ -30,11 +30,13 @@ public class Chaser extends Mob {
     private AnimatedSprite animSprite = chaser_unarmed_S;
 
 
-    private int fireRate = 0;
-    private int ShootFrequency = 5;
+    private int fireRate = 0; //overwritten by projectile
+    private int ShootFrequency = 100;
     private int time = 0;
-    private int xa = 0;
-    private int ya = 0;
+    private double speed = 0.5;
+    private int radius = 100;
+    private double xa = 0;
+    private double ya = 0;
 
     public Chaser(int x, int y) {
         super(x << 4, y << 4, null);
@@ -42,7 +44,7 @@ public class Chaser extends Mob {
 //        this.y = y << 4;
         sprite = animSprite;
         dir = Direction.S;
-        moving = false;
+        walking = false;
     }
 
 
@@ -51,15 +53,15 @@ public class Chaser extends Mob {
         ya = 0;
 
 
-        List<Player> players = level.getPlayers(this,100);
+        List<Player> players = level.getPlayers(this,radius);
         //Player player = level.getClientPlayer();
         if (players.size() > 0) {
             Player player = players.get(0);
 
-            if (x < player.getX()) xa++;
-            if (x > player.getX()) xa--;
-            if (y < player.getY()) ya++;
-            if (y > player.getY()) ya--;
+            if (x < player.getX()) xa+=speed;
+            if (x > player.getX()) xa-=speed;
+            if (y < player.getY()) ya+=speed;
+            if (y > player.getY()) ya-=speed;
         }
         if (xa != 0 || ya != 0) {
             move(xa, ya);
@@ -72,22 +74,14 @@ public class Chaser extends Mob {
     public void update() {
         move();
         time++;
+        shooting = (random.nextInt(ShootFrequency) == 0);
         if (walking || shooting) animSprite.update();
         else animSprite.setFrame(0);
 
         if (fireRate > 0) fireRate--;
 
 
-//        if (time % (random.nextInt(50) + 30) == 0) {
-//            ya = random.nextInt(3) - 1; //[-1|0|1]
-//            xa = random.nextInt(3) - 1;
-//            if (random.nextInt(4) == 0) {
-//                xa = 0;
-//                ya = 0;
-//            }
-//
-//            shooting = (random.nextInt(ShootFrequency) == 0);
-//        }
+
 
         if (xa < 0) {
             if (ya < 0) {
@@ -128,15 +122,21 @@ public class Chaser extends Mob {
         //shooting = (random.nextInt(10) == 0);
         if (shooting && fireRate <= 0) {
 
-            //TODO: Randomized aim
-            double dx = random.nextInt(Game.getWindowWidth()); // 400*3/2;
-            double dy = random.nextInt(Game.getWindowHeight()); //168*3/2;
-            double dir = Math.atan2(dy, dx);
-            shoot(x, y, dir);
 
-            fireRate = WizardProjectile.FIRE_RATE;
-            animSprite.setFrameRate(Math.ceilDiv(fireRate, 2));
-
+            List<Player> players = level.getPlayers(this,radius);
+            //Player player = level.getClientPlayer();
+            if (players.size() > 0) {
+                Player player = players.get(0);
+                double dx = player.getX() - x;
+                double dy = player.getY() - y;
+                double dir = Math.atan2(dy, dx);
+                shoot(x, y, dir);
+                fireRate = WizardProjectile.FIRE_RATE;
+                animSprite.setFrameRate(Math.ceilDiv(fireRate, 2));
+            } else
+            {
+                shooting = false;
+            }
         } else {
 
             animSprite.setFrameRate(animSprite.DEFAULT_RATE);
@@ -170,8 +170,8 @@ public class Chaser extends Mob {
         }
         sprite = animSprite.getSprite();
 
-        int xx = x - sprite.SIZE / 2;
-        int yy = y - sprite.SIZE / 2;
+        int xx = (int) (x - sprite.SIZE / 2);
+        int yy = (int) (y - sprite.SIZE / 2);
         screen.renderMob(xx, yy, this);
         //screen.renderMob(x, y, sprite);
 

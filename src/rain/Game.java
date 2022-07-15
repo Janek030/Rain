@@ -143,8 +143,8 @@ public class Game extends Canvas implements Runnable {
             return;
         }
         screen.clear();
-        int xScroll = player.getX() - screen.width/2;
-        int yScroll = player.getY() - screen.height/2;
+        int xScroll = (int) player.getX() - screen.width/2;
+        int yScroll = (int) player.getY() - screen.height/2;
 
         level.render(xScroll, yScroll, screen);
         //player.render(screen);

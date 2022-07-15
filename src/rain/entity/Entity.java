@@ -7,43 +7,47 @@ import rain.level.Level;
 import java.util.Random;
 
 public abstract class Entity {
-    protected int x, y;
+    protected double x, y;
     private boolean removed = false;
     protected Level level;
     protected Sprite sprite;
     protected final Random random = new Random();
 
-    public Entity(int x, int y, Sprite sprite){
+    public Entity(double x, double y, Sprite sprite) {
         this.x = x;
         this.y = y;
         this.sprite = sprite;
     }
-    public void update(){
+
+    public void update() {
 
     }
 
-    public void render(Screen screen){
-        if (sprite != null) screen.renderSprite(x,y,sprite,true);
+    public void render(Screen screen) {
+        if (sprite != null) screen.renderSprite((int) x, (int) y, sprite, true);
     }
 
-    public void remove(){
+    public void remove() {
         removed = true;
     }
 
-    public int getX(){
+    public double getX() {
         return x;
     }
-    public int getY(){
+
+    public double getY() {
         return y;
     }
-    public Sprite getSprite(){
+
+    public Sprite getSprite() {
         return sprite;
     }
-    public boolean isRemoved(){
+
+    public boolean isRemoved() {
         return removed;
     }
 
-    public void init(Level level){
+    public void init(Level level) {
         this.level = level;
     }
 

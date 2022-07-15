@@ -40,7 +40,7 @@ public class Player extends Mob {
     private AnimatedSprite player_shooting_SE = new AnimatedSprite(SpriteSheet.player_shooting_SE, 4, 1, 4, 3);
     private AnimatedSprite animSprite = player_unarmed_S;
     private int fireRate = 0;
-
+    private double speed = 1.5;
 
 //    public Player(Keyboard input) {
 //        this.input = input;
@@ -64,11 +64,11 @@ public class Player extends Mob {
         else animSprite.setFrame(0);
 
         if (fireRate > 0) fireRate--;
-        int xa = 0, ya = 0;
-        if (input.up) ya-=2;
-        if (input.down) ya+=2;
-        if (input.left) xa-=2;
-        if (input.right) xa+=2;
+        double xa = 0, ya = 0;
+        if (input.up) ya-=speed;
+        if (input.down) ya+=speed;
+        if (input.left) xa-=speed;
+        if (input.right) xa+=speed;
         if (xa != 0 || ya != 0) {
             move(xa, ya);
             walking = true;
@@ -138,8 +138,8 @@ public class Player extends Mob {
         }
         sprite = animSprite.getSprite();
 
-        int xx = x - sprite.SIZE / 2;
-        int yy = y - sprite.SIZE / 2;
+        int xx = (int) (x - sprite.SIZE / 2);
+        int yy = (int) (y - sprite.SIZE / 2);
         screen.renderMob(xx, yy, this);
 
     }

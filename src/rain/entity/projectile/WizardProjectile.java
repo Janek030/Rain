@@ -1,7 +1,6 @@
 package rain.entity.projectile;
 
 import rain.entity.spawner.ParticleSpawner;
-import rain.entity.spawner.Spawner;
 import rain.graphics.Screen;
 import rain.graphics.Sprite;
 
@@ -16,7 +15,7 @@ public class WizardProjectile extends Projectile {
     public static final boolean STICKY = false;
 
 
-    public WizardProjectile(int x, int y, double dir) {
+    public WizardProjectile(double x, double y, double dir) {
         super(x, y, dir);
 //        range = random.nextInt(100) + 20;
         range = 200;
